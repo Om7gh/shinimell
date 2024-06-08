@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:49 by omghazi           #+#    #+#             */
-/*   Updated: 2024/05/28 10:25:53 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/08 11:33:16 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@
 #define IS_DIRECTORY	 126
 #define UNKNOWN_COMMAND 127
 
-typedef struct s_redirection		t_redirection;
 typedef struct s_node				t_node;
 typedef struct s_minishell			t_minishell;
 typedef struct s_tokenizer			t_tokenizer;
 typedef struct s_signal				t_signal;
+typedef struct s_env				t_env;
+typedef struct s_cmd				t_cmd;
 typedef struct s_expansion			t_expantion;
 typedef enum e_lexer				t_lexer;
 typedef enum e_stat					t_stat;
@@ -41,11 +42,12 @@ struct s_tokenizer
 	char					*token;
 };
 
-struct s_redirection
+struct s_cmd
 {
-	char	*delimiter;
+	char	**cmd;
 	int		infile;
 	int		outfile;
+	struct s_cmd	*next;
 };
 
 struct s_minishell
@@ -53,9 +55,10 @@ struct s_minishell
 	t_tokenizer		*start;
 	t_lexer			*lexer;
 	t_stat			*stat;
-	t_list			*env;
-	t_list			*secret_env;
+	t_env			*env;
+	t_env			*secret_env;
 	pid_t			pid;
+	t_cmd			*cmd;
 	char			*line;
 	int				in;
 	int				out;
@@ -79,11 +82,11 @@ struct	s_signal
 	pid_t		pid;
 };
 
-struct	s_expansion
+struct s_env
 {
-	char			*new_arg;
-	int				i;
-	int				j;
+	char	*key;
+	char	*value;
+	struct s_env *next;
 };
 
 enum	e_lexer

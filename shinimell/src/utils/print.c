@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:00:29 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/01 13:07:22 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/05 15:05:47 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ void	print_type(t_lexer lexer)
 void	print_state(t_stat stat)
 {
 	if (stat == GENERAL)
-		printf("type GENERAL\t");
+		printf("stat GENERAL\t");
 	else if (stat == INQUOTES)
-		printf("type INQUOTES\t");
+		printf("stat INQUOTES\t");
 	else if (stat == INDQUOTES)
-		printf("type INDQUOTES\t");
+		printf("stat INDQUOTES\t");
 	else
 		printf("NO STAT\t");
 }

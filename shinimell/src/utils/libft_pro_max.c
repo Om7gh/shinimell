@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*   libft_pro_max.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 10:35:41 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/08 11:51:21 by omghazi          ###   ########.fr       */
+/*   Created: 2024/06/07 11:23:13 by omghazi           #+#    #+#             */
+/*   Updated: 2024/06/07 11:24:26 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	is_special(int c)
+int     ft_strcmp(char *s1, char *s2)
 {
-	return (c == '|' || c == '>' || c == '<' || c == ' ' || \
-		c == '"' || c == '\'');
-}
+        int     i;
 
-void	send_to_execution(t_tokenizer *token, t_minishell *mini, t_cmd *cmd)
-{
-	(void)token;
-	(void)mini;
-	(void)token;
+        i = 0;
+        while (s1[i] || s2[i])
+        {
+                if (s1[i] != s2[i])
+                        return (s1[i] - s2[i]);
+                i++;
+        }
+        return (0);
 }
