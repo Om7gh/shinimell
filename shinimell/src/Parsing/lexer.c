@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 05:59:41 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/01 13:06:08 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/10 23:39:18 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	lexer_first(t_tokenizer **token, char *input)
 	type = malloc(sizeof(t_lexer) * 10);
 	type[0] = WORD;
 	type[1] = PIPE;
-	type[2] = DOLLAR;
 	type[3] = WHITESPACE;
 	type[4] = GREAT;
 	type[5] = GREATGREAT;

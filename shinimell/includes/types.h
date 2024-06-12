@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:49 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/08 11:33:16 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/12 08:54:56 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ struct s_tokenizer
 
 struct s_cmd
 {
-	char	**cmd;
+	char		**cmd;
+	char		**red;
 	int		infile;
 	int		outfile;
+	t_lexer		*type;
 	struct s_cmd	*next;
 };
 
@@ -72,6 +74,7 @@ struct s_minishell
 	int				ret_value;
 	int				exit;
 	int				no_exec;
+	int				is_builting;
 };
 
 struct	s_signal
@@ -97,7 +100,6 @@ enum	e_lexer
 	LESSLESS,
 	PIPE,
 	WORD,
-	DOLLAR,
 	WHITESPACE,
 	D_QUOTE,
 	QUOTE,

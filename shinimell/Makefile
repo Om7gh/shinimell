@@ -8,36 +8,36 @@ LIBFT			= $(LIBFT_DIR)libft.a
 CFLAGS			= -I$(INCS_DIR) -I$(LIBFT_DIR) 
 CFLAGS			+= -Wall -Werror -Wextra -g
 NAME			= minishell
-RM				= rm -rf
-ERASE		:=	\033[2K\r
-BLUE		:=	\033[34m
-YELLOW		:=	\033[33m
-GREEN		:=	\033[32m
-END		:=	\033[0m
+RM			= rm -rf
+ERASE			= \033[2K\r
+BLUE			= \033[34m
+YELLOW			= \033[33m
+GREEN			= \033[32m
+END			= \033[0m
 
 all:			$(NAME)
 
 $(NAME) : $(OBJS) $(LIBFT)
-	@cc $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
+	cc $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
 	printf "$(ERASE)$(GREEN)$@ made\n$(END)"
 
 $(OBJS_DIR)%.o : %.c $(INCS)
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
 	printf "$(ERASE)$(BLUE) > Compilation :$(END) $<"
 
 $(LIBFT) :
-	@make -C $(LIBFT_DIR) && make clean -C $(LIBFT_DIR)
+	make -C $(LIBFT_DIR) && make clean -C $(LIBFT_DIR)
 
 clean :
 	printf "$(YELLOW)$(OBJS_DIR) removed$(END)\n"
-	@$(RM) $(OBJS_DIR)
+	$(RM) $(OBJS_DIR)
 
 fclean : clean
 	printf "$(YELLOW)$(NAME) removed$(END)\n"
 	printf "$(YELLOW)$(LIBFT) removed$(END)\n"
-	@make fclean -C $(LIBFT_DIR)
-	@$(RM) $(NAME)
+	make fclean -C $(LIBFT_DIR)
+	$(RM) $(NAME)
 
 re : fclean all
 
