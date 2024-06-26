@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 11:23:13 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/10 23:33:13 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/26 19:06:32 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int     ft_strcmp(char *s1, char *s2)
                         return (s1[i] - s2[i]);
                 i++;
         }
-        return (0);
+        return (SUCCESS);
 }
 
 int	between_pipe(t_tokenizer *lst)
