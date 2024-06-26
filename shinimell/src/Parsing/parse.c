@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:55:23 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/26 19:11:03 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/26 19:12:56 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,5 @@ void	parse_input(t_minishell *mini)
 	mini->cmd = cmds;
 	if (!check_validation(mini->start, mini))
 		return ;
-	// send_to_execution(mini->start, &cmds);
 	print_token(mini->start);
 }
