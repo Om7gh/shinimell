@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 11:23:13 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/26 19:06:32 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/28 21:05:54 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,28 @@ int	between_pipe(t_tokenizer *lst)
 		lst = lst->next;
 	}
 	return (length);
+}
+
+void    count_len(t_tokenizer *lst, int *commands_len, int *redirection_len)
+{
+        t_tokenizer	*tmp;
+
+	if (!lst)
+                return ;
+        tmp = lst;
+        while (tmp && *tmp->type != PIPE)
+        {
+                if (tmp && *tmp->type == LESS || *tmp->type == GREAT \
+                        || *tmp->type == LESSLESS || *tmp->type == GREATGREAT)
+                {
+                        *redirection_len += 2;
+                        tmp = tmp->next->next;
+                        continue;
+                }
+                else if (*tmp->type == WORD)
+                {
+                        *commands_len++;
+                        tmp = tmp->next;
+                }
+        }
 }

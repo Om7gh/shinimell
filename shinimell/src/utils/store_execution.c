@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:44:36 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/11 13:05:15 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/28 20:55:29 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	append_to_exec(t_cmd **cmds, t_cmd *cmd)
 	head->next = cmd;
 }
 
-t_cmd	*new_cmd(char **cmd, char **red, t_lexer *type)
+t_cmd	*new_cmd(char **cmd, char **red)
 {
 	t_cmd	*head;
 
@@ -38,7 +38,6 @@ t_cmd	*new_cmd(char **cmd, char **red, t_lexer *type)
 		return (NULL);
 	head->cmd = cmd;
 	head->red = red;
-        head->type = type;
 	head->next = NULL;
 	return (head);
 }

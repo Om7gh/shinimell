@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:53 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/12 08:51:45 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/28 21:05:57 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@
 #include <fcntl.h>
 
 /* FUNCTIONS */
+void    count_len(t_tokenizer *lst, int *commands_len, int *redirection_len);
 void	clear_cmd(t_cmd **cmd, void (*del)(void *));
 void	del_one_cmd(t_cmd *cmds, void (*del)(void *));
-t_cmd	*new_cmd(char **cmd, char **red, t_lexer *type);
+t_cmd	*new_cmd(char **cmd, char **red);
 void	append_to_exec(t_cmd **cmds, t_cmd *cmd);
 int	between_pipe(t_tokenizer *lst);
-void	send_to_execution(t_tokenizer *token, t_cmd **cmd);
 int     ft_strcmp(char *s1, char *s2);
 int 	here_doc(t_tokenizer *delimiter, t_minishell *mini);
 char	*expansion(char *token, t_minishell *mini);
