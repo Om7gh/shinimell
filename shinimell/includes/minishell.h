@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:53 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/29 15:42:49 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/29 20:32:01 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,16 @@
 #include <fcntl.h>
 
 /* FUNCTIONS */
-int		pwd(t_minishell *mini);
-int		export(t_minishell *mini, t_env *env);
-int		exit(t_minishell *mini);
-int		echo(t_minishell *mini);
-int		cd(t_minishell *mini, t_env *env);
-int		unset(t_minishell *mini, t_env *env);
+char    *get_values(t_env **env, char *key);
+void    set_env(t_env **env, char *key, char *value);
+char		*get_value(t_minishell **mini, char *key);
+int		env(t_minishell *mini, t_env *env);
+int		pwd(t_tokenizer *token, t_env *env);
+int		export(t_tokenizer *token, t_env *env);
+int		ft_exit(t_tokenizer *token);
+int		echo(t_tokenizer *token , t_env *env);
+int		cd(t_tokenizer *token, t_env *env);
+int		unset(t_tokenizer *token, t_env *env);
 void	send_to_execution(t_tokenizer *token, t_cmd **cmd);
 void    count_len(t_tokenizer *lst, int *commands_len, int *redirection_len);
 void	clear_cmd(t_cmd **cmd, void (*del)(void *));

@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:23:24 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/26 19:15:46 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/29 18:48:18 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,19 @@ char	*expansion(char *token, t_minishell *mini)
 	str = NULL;
 	join_it = 0;
 	j = 0;
+	
 	while (token[i])
 	{
 		count = 0;
 		if (token[i] == '$')
 		{
+			if (token[i] == '$' && token[i + 1] == '?')
+			{
+				str = ft_itoa(mini->ret_value);
+				join_it = ft_strjoin(join_it, str);
+				token = ft_strdup(join_it);
+				return (token);
+			}
 			while (token[i] == '$' && token[i + 1] == '$')
 				(count++, i++);
 			if (count % 2 == 0)

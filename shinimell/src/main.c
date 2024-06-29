@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:21:47 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/29 13:23:35 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/29 16:59:51 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,5 @@ int	main(int argc, char **argv, char **env)
 	}
 	close(minishell->in);
 	close(minishell->out);
-	free(minishell->line);
-	free(minishell);
-	minishell = NULL;
 	return (minishell->ret_value);
 }
