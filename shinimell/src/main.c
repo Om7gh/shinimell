@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:21:47 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/12 08:55:43 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/29 13:23:35 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int argc, char **argv, char **env)
 	t_minishell	*minishell;
 	t_tokenizer	*lexer;
 	t_env		*envr;
+	t_cmd		*cmds;
 
 	(void)argc;
 	(void)argv;
@@ -26,6 +27,9 @@ int	main(int argc, char **argv, char **env)
 		printf("%serror with malloc%s\n", RED_COLOR, RESET);
 		exit(ERROR);
 	}
+	envr = NULL;
+	lexer = NULL;
+	cmds = NULL;
 	store_env(env, &envr);
 	minishell->in = dup(0);
 	minishell->out = dup(1);
@@ -41,8 +45,8 @@ int	main(int argc, char **argv, char **env)
 			return (minishell->ret_value);
 		lexer_first(&lexer, minishell->line);
 		minishell->start = lexer;
-		parse_input(minishell);
-		close(minishell->cmd->infile);
+		parse_input(minishell, &cmds);
+		close(minishell->infile);
 		unlink("/tmp/.ana_machi_heredoc");
 		if (minishell->line)
 			add_history(minishell->line);

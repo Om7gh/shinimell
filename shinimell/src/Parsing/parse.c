@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:55:23 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/26 19:12:56 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:45:28 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,26 @@ int	check_validation(t_tokenizer *token, t_minishell *mini)
 	return (1);
 }
 
-void	parse_input(t_minishell *mini)
+void	parse_input(t_minishell *mini, t_cmd **cmds)
 {
-	t_cmd *cmds;
-
-	cmds = malloc(sizeof(t_cmd));
-	if (!cmds)
-		return ;
-	cmds->infile = open("/tmp/.ana_machi_heredoc", O_RDWR | O_CREAT | O_TRUNC, 0777);
-	mini->cmd = cmds;
+	mini->infile = open("/tmp/.ana_machi_heredoc", O_RDWR | O_CREAT | O_TRUNC, 0777);
 	if (!check_validation(mini->start, mini))
 		return ;
+	if (ft_strcmp(mini->start->token, "exit") == 0)
+		mini->exit = 1;
+	else if (ft_strcmp(mini->start->token, "cd") == 0)
+		mini->ret_value = cd(mini->start->next, mini->env);
+	else if (ft_strcmp(mini->start->token, "export") == 0)
+		mini->ret_value = export(mini->start->next, mini->env);
+	else if (ft_strcmp(mini->start->token, "unset") == 0)
+		mini->ret_value = unset(mini->start->next, mini->env);
+	else if (ft_strcmp(mini->start->token, "env") == 0)
+		mini->ret_value = print_env(mini->env);
+	else if (ft_strcmp(mini->start->token, "echo") == 0)
+		mini->ret_value = echo(mini->start->next);
+	else if (ft_strcmp(mini->start->token, "pwd") == 0)
+		mini->ret_value = pwd(mini);
+	else
+		send_to_execution(mini->start, cmds);
 	print_token(mini->start);
 }

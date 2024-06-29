@@ -6,8 +6,13 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:38 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/04 17:46:40 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:43:13 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+int     cd(t_minishell *mini, t_env *env)
+{
+       
+}

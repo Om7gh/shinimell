@@ -6,8 +6,15 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:24 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/04 17:46:34 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/29 13:27:38 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+int     exit(t_minishell *mini)
+{
+        
+
+        return (mini->ret_value);
+}

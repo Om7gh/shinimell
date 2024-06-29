@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 11:23:13 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/28 21:05:54 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/29 10:00:03 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void    count_len(t_tokenizer *lst, int *commands_len, int *redirection_len)
         tmp = lst;
         while (tmp && *tmp->type != PIPE)
         {
-                if (tmp && *tmp->type == LESS || *tmp->type == GREAT \
-                        || *tmp->type == LESSLESS || *tmp->type == GREATGREAT)
+                if (tmp && (*tmp->type == LESS || *tmp->type == GREAT \
+                        || *tmp->type == LESSLESS || *tmp->type == GREATGREAT))
                 {
                         *redirection_len += 2;
                         tmp = tmp->next->next;
@@ -60,7 +60,7 @@ void    count_len(t_tokenizer *lst, int *commands_len, int *redirection_len)
                 }
                 else if (*tmp->type == WORD)
                 {
-                        *commands_len++;
+                        (*commands_len)++;
                         tmp = tmp->next;
                 }
         }

@@ -6,7 +6,7 @@ INCS			= $(INCS_DIR)minishell.h $(INCS_DIR)types.h
 LIBFT_DIR		= lib/libft/
 LIBFT			= $(LIBFT_DIR)libft.a
 CFLAGS			= -I$(INCS_DIR) -I$(LIBFT_DIR) 
-CFLAGS			+= -Wall -Werror -Wextra -g
+CFLAGS			+= -Wall -Werror -Wextra -g -fsanitize=address
 NAME			= minishell
 RM			= rm -rf
 ERASE			= \033[2K\r

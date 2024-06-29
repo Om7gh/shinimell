@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:53 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/28 21:05:57 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:42:49 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,17 @@
 #include <fcntl.h>
 
 /* FUNCTIONS */
+int		pwd(t_minishell *mini);
+int		export(t_minishell *mini, t_env *env);
+int		exit(t_minishell *mini);
+int		echo(t_minishell *mini);
+int		cd(t_minishell *mini, t_env *env);
+int		unset(t_minishell *mini, t_env *env);
+void	send_to_execution(t_tokenizer *token, t_cmd **cmd);
 void    count_len(t_tokenizer *lst, int *commands_len, int *redirection_len);
 void	clear_cmd(t_cmd **cmd, void (*del)(void *));
 void	del_one_cmd(t_cmd *cmds, void (*del)(void *));
-t_cmd	*new_cmd(char **cmd, char **red);
+t_cmd	*new_cmd(int cmd_n, int red_n);
 void	append_to_exec(t_cmd **cmds, t_cmd *cmd);
 int	between_pipe(t_tokenizer *lst);
 int     ft_strcmp(char *s1, char *s2);
@@ -46,7 +53,7 @@ void		print_type(t_lexer lexer);
 void		del_one_token(t_tokenizer *lst, void (*del)(void *));
 void		clear_token(t_tokenizer **lst, void (*del)(void *));
 void		lexer_first(t_tokenizer **token, char *input);
-void		parse_input(t_minishell *mini);
+void		parse_input(t_minishell *mini, t_cmd **cmds);
 void		append_token(t_tokenizer **tokens, t_tokenizer *token);
 int			ft_isspace(char c);
 int			is_special(int c);

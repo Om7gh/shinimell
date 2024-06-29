@@ -6,8 +6,14 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:51 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/04 17:46:53 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:38:55 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+int     pwd(t_minishell *mini)
+{
+        
+        return (mini->ret_value);
+}

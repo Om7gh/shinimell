@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:49 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/28 20:46:11 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/29 09:55:25 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ struct s_minishell
 	t_cmd			*cmd;
 	char			*line;
 	int				in;
+	int				infile;
+	int				outfile;
 	int				out;
 	int				fdin;
 	int				fdout;
