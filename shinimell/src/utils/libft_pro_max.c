@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 11:23:13 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/29 10:00:03 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/02 12:42:25 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int     ft_strcmp(char *s1, char *s2)
         int     i;
 
         i = 0;
-        while (s1[i] || s2[i])
+        while (s1 && s2 && (s1[i] || s2[i]))
         {
                 if (s1[i] != s2[i])
                         return (s1[i] - s2[i]);

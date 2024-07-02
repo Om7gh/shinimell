@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:24 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/29 20:45:24 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/29 22:24:46 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int    ft_isnumber(char *str)
         int i;
 
         i = 0;
-        while (str[i])
+        while (str && str[i])
         {
                 if (!ft_isdigit(str[i]))
                         return (0);

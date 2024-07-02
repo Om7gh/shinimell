@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 05:59:41 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/26 19:12:01 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/02 12:40:13 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_tokenizer	*token_special_char(char *input, t_lexer *type, int *i)
 	return (node);
 }
 
-void	lexer_first(t_tokenizer **token, char *input)
+int	lexer_first(t_tokenizer **token, char *input)
 {
 	t_tokenizer	*node;
 	int			i;
@@ -116,7 +116,8 @@ void	lexer_first(t_tokenizer **token, char *input)
 		else if (input[i] && is_special(input[i]))
 			node = token_special_char(input, type, &i);
 		if (!node)
-			return (clear_token(token, free));
+			return (clear_token(token, free), 0);
 		append_token(token, node);
 	}
+	return (1);
 }

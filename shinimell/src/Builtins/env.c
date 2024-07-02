@@ -6,13 +6,13 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:54:45 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/29 15:55:03 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/06/30 10:44:12 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int     env(t_minishell *mini, t_env *env)
+int     env(t_env *env)
 {
         t_env *tmp;
 
@@ -25,5 +25,5 @@ int     env(t_minishell *mini, t_env *env)
                         printf("%s=\n", tmp->key);
                 tmp = tmp->next;
         }
-        return (mini->ret_value);
+        return (0);
 }
