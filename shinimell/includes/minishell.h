@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:53 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/02 11:01:01 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/02 16:13:18 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 #include <fcntl.h>
 
 /* FUNCTIONS */
+void handle_sigquit(int sig);
+void handle_sigint(int sig);
 t_env	*new_env(char *key, char *value);
 void    append_env(t_env **env, t_env *node);
 char    *get_values(t_env **env, char *key);

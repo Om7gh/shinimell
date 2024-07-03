@@ -6,16 +6,35 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:45 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/02 15:03:25 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/03 11:01:02 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+void    join_nodes(t_tokenizer **token)
+{
+        t_tokenizer *tmp;
+
+        tmp = *token;
+        while (tmp->next)
+        {
+                if (*tmp->stat != *tmp->next->stat)
+                {
+                        tmp->token = ft_strdup(ft_strjoin(tmp->token, tmp->next->token));
+                        tmp->next = tmp->next->next;
+                        if (tmp->next)
+                                tmp->next->prev = tmp;
+                }
+                else
+                        tmp = tmp->next;
+        }
+}
+
 int     export(t_tokenizer *token, t_env *env)
 {
-        t_env *tmp;
-        int flag;
+        t_env   *tmp;
+        int     flag;
 
         if (!token)
         {
@@ -37,12 +56,27 @@ int     export(t_tokenizer *token, t_env *env)
         }
         if (token)
         {
+                join_nodes(&token);
                 while (token)
                 {
                         if (!ft_strchr(token->token, '=') && !ft_strchr(token->token, '+'))
                         {
-                                tmp = new_env(ft_strdup(token->token), NULL);
-                                append_env(&env, tmp);
+                                tmp = env;
+                                flag = 0;
+                                while (tmp)
+                                {
+                                        if (!ft_strcmp(token->token, tmp->key))
+                                        {
+                                                flag = 1;
+                                                break ;
+                                        }
+                                        tmp = tmp->next;
+                                }
+                                if (!flag)
+                                {
+                                        tmp = new_env(ft_strdup(token->token), NULL);
+                                        append_env(&env, tmp);
+                                }
                         }
                         else if (ft_strchr(token->token, '=') && !ft_strchr(token->token, '+'))
                         {

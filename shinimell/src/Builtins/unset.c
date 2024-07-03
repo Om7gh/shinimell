@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:47:01 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/30 18:58:46 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/02 15:10:24 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,33 @@
 
 int     unset(t_tokenizer *token, t_env *env)
 {
-       t_env *head;
-       t_env *tmp;
+        t_env *tmp;
+        t_env *prev;
+        int flag;
 
         if (!token)
                 return (0);
-        head = env;
         while (token)
         {
-                tmp = head;
-                while (head)
+                tmp = env;
+                prev = env;
+                flag = 0;
+                while (tmp)
                 {
-                        if (!ft_strcmp(head->key, token->token))
+                        if (!ft_strcmp(token->token, tmp->key))
                         {
-                                head->value = NULL;
-                                head->key = NULL;
-                                return (0);
+                                if (tmp == env)
+                                        env = env->next;
+                                else
+                                        prev->next = tmp->next;
+                                flag = 1;
+                                break ;
                         }
-                        head = head->next;
+                        prev = tmp;
+                        tmp = tmp->next;
                 }
+                if (!flag)
+                        return (0);
                 token = token->next;
         }
         return (0);
