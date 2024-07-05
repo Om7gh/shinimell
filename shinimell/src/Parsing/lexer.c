@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 05:59:41 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/03 10:03:31 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/05 15:49:54 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,6 @@ int	lexer_first(t_tokenizer **token, char *input)
 			return (clear_token(token, free), 0);
 		append_token(token, node);
 	}
+	print_token(*token);
 	return (1);
 }

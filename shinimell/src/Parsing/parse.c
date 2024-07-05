@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:55:23 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/30 10:44:32 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/05 15:52:28 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_validation(t_tokenizer *token, t_minishell *mini)
 	{
 		if (token && *token->type != WORD && !token->next)
 			return (printf("syntax error near unexpected token `%s'\n", token->token), 0);
-		if (*token->type == LESSLESS)
+		if (*token->type == LESSLESS && *token->next->type == WORD)
 			if (!here_doc(token->next, mini))
 				return (0);
 		if (*token->type != WORD && *token->next->type != WORD)

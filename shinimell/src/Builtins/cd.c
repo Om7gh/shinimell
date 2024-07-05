@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:38 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/29 20:37:14 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/05 22:07:55 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char    *get_values(t_env **env, char *key)
         return (NULL);
 }
 
-void    set_env(t_env **env, char *key, char *value)
+int    set_env(t_env **env, char *key, char *value)
 {
         t_env   *tmp;
 
@@ -37,10 +37,11 @@ void    set_env(t_env **env, char *key, char *value)
                 {
                         free(tmp->value);
                         tmp->value = ft_strdup(value);
-                        return ;
+                        return (1);
                 }
                 tmp = tmp->next;
         }
+        return (0);
 }
 
 int     cd(t_tokenizer *token, t_env *env)
@@ -70,7 +71,9 @@ int     cd(t_tokenizer *token, t_env *env)
                 }
         }
         pwd = getcwd(NULL, 0);
-        set_env(&env, "OLDPWD", oldpwd);
-        set_env(&env, "PWD", pwd);
+        if (!set_env(&env, "OLDPWD", oldpwd))
+                append_env(&env, new_env("OLDPWD", ft_strdup("")));
+        if (!set_env(&env, "PWD", pwd))
+                append_env(&env, new_env("PWD", pwd));
         return (0);
 }

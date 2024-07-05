@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:21:47 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/02 17:11:43 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/05 20:48:21 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ int	main(int argc, char **argv, char **env)
 	minishell->in = dup(0);
 	minishell->out = dup(1);
 	minishell->exit = 0;
-	minishell->no_exec = 0;
 	minishell->ret_value = 0;
 	minishell->env = envr;
-	minishell->is_builting = 0;
 	while (minishell->exit == 0)
 	{
 		//signal(SIGINT, handle_sigint); // ctrl + c
@@ -52,9 +50,11 @@ int	main(int argc, char **argv, char **env)
 		close(minishell->infile);
 		unlink("/tmp/.ana_machi_heredoc");
 		if (minishell->line)
+		{
 			add_history(minishell->line);
-		free(minishell->line);
-		clear_token(&lexer, free);
+			free(minishell->line);
+			clear_token(&lexer, free);
+		}
 	}
 	close(minishell->in);
 	close(minishell->out);

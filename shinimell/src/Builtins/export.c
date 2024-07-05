@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:45 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/03 11:01:02 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/05 20:53:42 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void    join_nodes(t_tokenizer **token)
         {
                 if (*tmp->stat != *tmp->next->stat)
                 {
-                        tmp->token = ft_strdup(ft_strjoin(tmp->token, tmp->next->token));
+                        tmp->token = ft_strjoin(tmp->token, tmp->next->token);
                         tmp->next = tmp->next->next;
                         if (tmp->next)
                                 tmp->next->prev = tmp;
@@ -95,8 +95,8 @@ int     export(t_tokenizer *token, t_env *env)
                                         flag = 0;
                                 if (flag)
                                 {
-                                        if (ft_strchr(token->token, '=') && ft_split(token->token, '=')[1])
-                                                tmp->value = ft_strdup(ft_split(token->token, '=')[1]);
+                                        if (ft_strchr(token->token, '=') && ft_strchr(token->token, '='))
+                                                tmp->value = ft_strdup(ft_strchr(token->token, '='));
                                         else
                                         {
                                                 tmp->value = NULL;
@@ -105,7 +105,8 @@ int     export(t_tokenizer *token, t_env *env)
                                 }
                                 else
                                 {
-                                        tmp = new_env(ft_split(token->token, '=')[0], ft_split(token->token, '=')[1]);
+                                        tmp = new_env(ft_split(token->token, '=')[0], ft_strdup(ft_strchr(token->token, '=') + 1));
+                                        printf("%s\t%s\n", tmp->key, tmp->value);
                                         append_env(&env, tmp);
                                 }
                         }
@@ -126,7 +127,7 @@ int     export(t_tokenizer *token, t_env *env)
                                         flag = 0;
                                 if (flag)
                                 {
-                                        if (ft_strchr(token->token, '+') && ft_split(token->token, '+')[1])
+                                        if (ft_strchr(token->token, '+') && ft_strchr(token->token, '+'))
                                                 tmp->value = ft_strjoin(tmp->value, ft_strpbrk(token->token, "+=") + 2);
                                         else
                                         {
@@ -136,7 +137,7 @@ int     export(t_tokenizer *token, t_env *env)
                                 }
                                 else
                                 {
-                                        tmp = new_env(ft_split(token->token, '+')[0], ft_split(token->token, '+')[1]);
+                                        tmp = new_env(ft_split(token->token, '+')[0], ft_strchr(token->token, '+') + 1);
                                         append_env(&env, tmp);
                                 }
                         }
@@ -145,7 +146,3 @@ int     export(t_tokenizer *token, t_env *env)
         }
         return (0);
 }
-
-/*
-        $PWD
-*/

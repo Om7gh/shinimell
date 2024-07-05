@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:53 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/02 16:13:18 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/05 21:16:15 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void handle_sigint(int sig);
 t_env	*new_env(char *key, char *value);
 void    append_env(t_env **env, t_env *node);
 char    *get_values(t_env **env, char *key);
-void    set_env(t_env **env, char *key, char *value);
+int    set_env(t_env **env, char *key, char *value);
 char		*get_value(t_minishell **mini, char *key);
 int		env(t_env *env);
 int		pwd(t_tokenizer *token, t_env *env);

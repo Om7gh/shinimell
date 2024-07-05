@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:23:24 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/29 18:48:18 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/05 12:56:08 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_value(t_minishell **mini, char *key)
 	envr = (*mini)->env;
 	while (envr)
 	{
-		if (!strncmp(envr->key, key, ft_strlen(key)))
+		if (!strcmp(envr->key, key))
 			return (envr->value);
 		envr = envr->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:54:45 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/30 10:44:12 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/05 13:17:57 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int     env(t_env *env)
         {
                 if (tmp->value)
                         printf("%s=%s\n", tmp->key, tmp->value);
-                else
-                        printf("%s=\n", tmp->key);
                 tmp = tmp->next;
         }
         return (0);

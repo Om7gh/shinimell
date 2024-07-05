@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:49 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/03 10:54:14 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/05 15:59:07 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ struct s_cmd
 {
 	char		**cmd;
 	char		**red;
+	int		infile;
+	int		outfile;
 	struct s_cmd	*next;
 };
 
@@ -72,8 +74,6 @@ struct s_minishell
 	int				last;
 	int				ret_value;
 	int				exit;
-	int				no_exec;
-	int				is_builting;
 };
 
 struct	s_signal
