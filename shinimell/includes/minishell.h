@@ -6,24 +6,24 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:53 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/05 21:16:15 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/06 19:28:29 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include <readline/readline.h>
-#include <readline/history.h>
 #include <libft.h>
 #include <types.h>
 #include <stdio.h>
 #include <signal.h>
 #include <limits.h>
 #include <fcntl.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 /* FUNCTIONS */
-void handle_sigquit(int sig);
 void handle_sigint(int sig);
+void handle_sigquit(int sig);
 t_env	*new_env(char *key, char *value);
 void    append_env(t_env **env, t_env *node);
 char    *get_values(t_env **env, char *key);

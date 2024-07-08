@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:45 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/05 20:53:42 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/08 18:21:01 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,34 +31,44 @@ void    join_nodes(t_tokenizer **token)
         }
 }
 
+void    print_export(t_env *env)
+{
+        t_env   *tmp;
+
+        tmp = env;
+        while (tmp)
+        {
+                if (tmp->key && tmp->value)
+                        printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
+                else if(tmp->key && !tmp->value)
+                        printf("declare -x %s\n", tmp->key);
+                tmp = tmp->next;
+        }
+}
+
 int     export(t_tokenizer *token, t_env *env)
 {
         t_env   *tmp;
         int     flag;
 
         if (!token)
-        {
-                tmp = env;
-                while (tmp)
-                {
-                        if (tmp->value)
-                                printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
-                        else
-                                printf("declare -x %s\n", tmp->key);
-                        tmp = tmp->next;
-                }
-                return (0);
-        }
-        if (ft_strchr(token->token, '+') && !ft_strchr(token->token, '='))
-        {
-                printf("%sexport: not valid in this context: %s\n%s", YELLOW_COLOR, token->token, RESET);
-                return (1);
-        }
+                print_export(env);
         if (token)
         {
                 join_nodes(&token);
                 while (token)
                 {
+                        if (ft_strlen(ft_split(token->token, '=')[0]) == 0 || ft_strlen(ft_split(token->token, '=')[1]) == 0)
+                        {
+                                printf("%sexport: not valid in this context: %s\n%s", YELLOW_COLOR, token->token, RESET);
+                                token = token->next;
+                                continue;
+                        }
+                        if (ft_strlen(token->token) == 0)
+                        {
+                                if (!token->next)
+                                        print_export(env);
+                        }
                         if (!ft_strchr(token->token, '=') && !ft_strchr(token->token, '+'))
                         {
                                 tmp = env;
@@ -96,7 +106,7 @@ int     export(t_tokenizer *token, t_env *env)
                                 if (flag)
                                 {
                                         if (ft_strchr(token->token, '=') && ft_strchr(token->token, '='))
-                                                tmp->value = ft_strdup(ft_strchr(token->token, '='));
+                                                tmp->value = ft_strdup(ft_strchr(token->token, '=') + 1);
                                         else
                                         {
                                                 tmp->value = NULL;
@@ -106,12 +116,16 @@ int     export(t_tokenizer *token, t_env *env)
                                 else
                                 {
                                         tmp = new_env(ft_split(token->token, '=')[0], ft_strdup(ft_strchr(token->token, '=') + 1));
-                                        printf("%s\t%s\n", tmp->key, tmp->value);
                                         append_env(&env, tmp);
                                 }
                         }
                         else if (ft_strchr(token->token, '+'))
                         {
+                                if (token && ft_strchr(token->token, '+') && !ft_strchr(token->token, '='))
+                                {
+                                        printf("%sexport: not valid in this context: %s\n%s", YELLOW_COLOR, token->token, RESET);
+                                        return (1);
+                                }
                                 flag = 0;
                                 tmp = env;
                                 while (tmp)
@@ -137,7 +151,7 @@ int     export(t_tokenizer *token, t_env *env)
                                 }
                                 else
                                 {
-                                        tmp = new_env(ft_split(token->token, '+')[0], ft_strchr(token->token, '+') + 1);
+                                        tmp = new_env(*ft_split(token->token, '+'), ft_strdup(ft_strpbrk(token->token, "+=") + 2));
                                         append_env(&env, tmp);
                                 }
                         }

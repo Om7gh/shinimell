@@ -14,16 +14,17 @@ BLUE			= \033[34m
 YELLOW			= \033[33m
 GREEN			= \033[32m
 END			= \033[0m
+LDFLAGS			= -L/Users/omghazi/.brew/opt/readline/lib -lreadline
 
 all:			$(NAME)
 
 $(NAME) : $(OBJS) $(LIBFT)
-	cc $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
+	cc $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
 	printf "$(ERASE)$(GREEN)$@ made\n$(END)"
 
 $(OBJS_DIR)%.o : %.c $(INCS)
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@	
 	printf "$(ERASE)$(BLUE) > Compilation :$(END) $<"
 
 $(LIBFT) :
