@@ -6,18 +6,16 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:51 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/30 10:39:27 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/09 22:04:57 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int     pwd(t_tokenizer *token, t_env *env)
+int     pwd(t_tokenizer *token)
 {
-        (void)env;
         char* path;
-        
-        
+
         path = token->token;
         path = getcwd(NULL, 0);
         if (!path)

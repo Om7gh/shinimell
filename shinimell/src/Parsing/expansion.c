@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:23:24 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/05 12:56:08 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/11 15:25:10 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char	*expansion(char *token, t_minishell *mini)
 					i++;
 				str = get_value(&mini, ft_substr(token, j, i));
 				join_it = ft_strjoin(join_it, str);
+				printf("%s\n", join_it);
 			}
 			else
 			{
@@ -69,6 +70,7 @@ char	*expansion(char *token, t_minishell *mini)
 					i++;
 				str = ft_substr(token, j - count, i);
 				join_it = ft_strjoin(join_it, str);
+				printf("%s\n", join_it);
 			}
 		}
 		else
@@ -78,6 +80,8 @@ char	*expansion(char *token, t_minishell *mini)
 				i++;
 			str = ft_substr(token, j, i);
 			join_it = ft_strjoin(join_it, str);
+			printf("%s\n", join_it);
+			i++;
 		}
 	}
 	if (join_it)

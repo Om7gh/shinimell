@@ -6,11 +6,16 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:45 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/08 18:21:01 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/11 16:09:44 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+int     check_export(char c)
+{
+        return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_';
+}
 
 void    join_nodes(t_tokenizer **token)
 {
@@ -58,12 +63,6 @@ int     export(t_tokenizer *token, t_env *env)
                 join_nodes(&token);
                 while (token)
                 {
-                        if (ft_strlen(ft_split(token->token, '=')[0]) == 0 || ft_strlen(ft_split(token->token, '=')[1]) == 0)
-                        {
-                                printf("%sexport: not valid in this context: %s\n%s", YELLOW_COLOR, token->token, RESET);
-                                token = token->next;
-                                continue;
-                        }
                         if (ft_strlen(token->token) == 0)
                         {
                                 if (!token->next)

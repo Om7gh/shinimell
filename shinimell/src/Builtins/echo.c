@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:41 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/30 12:03:54 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/13 14:30:35 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int     echo(t_tokenizer *token)
               {
                      printf("%s", token->token);
                      token = token->next;
-                     if (token && *token->stat != INDQUOTES && *token->stat != INQUOTES)
+                     if (token)
                             printf(" ");
               }
               printf("\n");
