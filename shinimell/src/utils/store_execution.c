@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:44:36 by omghazi           #+#    #+#             */
-/*   Updated: 2024/06/29 10:53:20 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/19 21:16:09 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,19 @@ void append_to_exec(t_cmd **cmds, t_cmd *cmd)
     head->next = cmd;
 }
 
-t_cmd	*new_cmd(int cmd_n, int red_n)
+t_cmd	*new_cmd(int cmd, int red)
 {
-	t_cmd	*head;
+	t_cmd	*new;
 
-	head = (t_cmd *)malloc(sizeof(t_cmd));
-	if (!head)
-		return (NULL);
-	head->cmd = malloc(sizeof(char *) * (cmd_n + 1));
-	if (!head->cmd)
-	{
-		free(head);
-		return NULL;
-	}
-	head->red = malloc(sizeof(char *) * (red_n + 1));
-	if (!head->red)
-	{
-		free(head);
-		return NULL;
-	}
-	head->next = NULL;
-	return (head);
+	new = malloc(sizeof(t_cmd));
+	if (!new)
+		NULL;
+	new->cmd = malloc(sizeof(char *) * (cmd + 1));
+	new->red = malloc(sizeof(char *) * (red + 1));
+	new->cmd[cmd] = NULL;
+	new->red[red] = NULL;
+	new->next = NULL;
+	return (new);
 }
 
 void	del_one_cmd(t_cmd *cmds, void (*del)(void *))

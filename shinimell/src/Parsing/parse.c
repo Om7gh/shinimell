@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:55:23 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/11 16:08:45 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/21 18:51:02 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,7 @@ void	parse_input(t_minishell *mini, t_cmd **cmds)
 		return ;
 	if (mini->start)
 	{
-		if (ft_strcmp(mini->start->token, "exit") == 0)
-			ft_exit(mini->start->next);
-		else if (ft_strcmp(mini->start->token, "cd") == 0)
-			mini->ret_value = cd(mini->start->next, mini->env);
-		else if (ft_strcmp(mini->start->token, "export") == 0)
-			mini->ret_value = export(mini->start->next, mini->env);
-		else if (ft_strcmp(mini->start->token, "unset") == 0)
-			mini->ret_value = unset(mini->start->next, &mini->env);
-		else if (ft_strcmp(mini->start->token, "env") == 0)
-			mini->ret_value = env(mini->env);
-		else if (ft_strcmp(mini->start->token, "echo") == 0)
-			mini->ret_value = echo(mini->start->next);
-		else if (ft_strcmp(mini->start->token, "pwd") == 0)
-			mini->ret_value = pwd(mini->start);
-		else
-			send_to_execution(mini->start, cmds);
+		send_to_execution(mini->start, cmds);
+		mini->ret_value = execution(mini, *cmds);
 	}
 }

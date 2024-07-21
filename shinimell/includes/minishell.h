@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:53 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/09 22:19:04 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/21 20:47:18 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@
 #include <readline/history.h>
 
 /* FUNCTIONS */
+int     multi_process(t_minishell *mini, t_cmd *cmds);
+char	*env_join(char const *s1, char const *s2);
+int     single_process(t_minishell *mini, t_cmd *cmds);
+int     single_process(t_minishell *mini, t_cmd *cmds);
+char	**env_to_array(t_env *env_list);
+int	node_len(t_cmd *cmds);
+int     my_execve(t_minishell *mini, t_cmd *cmds);
+char    *find_cmd(t_minishell *mini, char *cmd);
+int     execution(t_minishell *mini, t_cmd *cmds);
+void print_linked_list(t_cmd **cmd);
 int     check_token(char *token);
 void	del_one_env(t_env *lst, void (*del)(void *));
 void handle_sigint(int sig);
@@ -42,7 +52,7 @@ void	send_to_execution(t_tokenizer *token, t_cmd **cmd);
 void    count_len(t_tokenizer *lst, int *commands_len, int *redirection_len);
 void	clear_cmd(t_cmd **cmd, void (*del)(void *));
 void	del_one_cmd(t_cmd *cmds, void (*del)(void *));
-t_cmd	*new_cmd(int cmd_n, int red_n);
+t_cmd	*new_cmd(int cmd, int red);
 void	append_to_exec(t_cmd **cmds, t_cmd *cmd);
 int	between_pipe(t_tokenizer *lst);
 int     ft_strcmp(char *s1, char *s2);

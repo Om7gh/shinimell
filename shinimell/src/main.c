@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:21:47 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/11 15:30:13 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/21 19:10:46 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,8 @@ int	main(int argc, char **argv, char **env)
 	lexer = NULL;
 	cmds = NULL;
 	store_env(env, &envr);
-	minishell->in = dup(0);
-	minishell->out = dup(1);
 	minishell->exit = 0;
-	minishell->ret_value = 0;
+	minishell->ret_value = 0;	
 	minishell->env = envr;
 	while (minishell->exit == 0)
 	{
@@ -54,6 +52,7 @@ int	main(int argc, char **argv, char **env)
 			add_history(minishell->line);
 			free(minishell->line);
 			clear_token(&lexer, free);
+			clear_cmd(&cmds, free);
 		}
 	}
 	close(minishell->in);
