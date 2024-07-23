@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:23:24 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/23 15:23:19 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/23 15:39:13 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,7 @@ char	*expansion(char *token, t_minishell *mini)
 		}
 	}
 	if (join_it)
-	{
-		printf("%s\n", join_it);
 		token = ft_strdup(join_it);
-	}
 	return (token);
 }
 

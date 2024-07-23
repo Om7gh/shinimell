@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 09:42:00 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/23 15:17:36 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/23 15:41:21 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ int     execution(t_minishell *mini, t_cmd *cmds)
 	// 		return (1);
         //         return (multi_process(mini, cmds));
 	// }
-	return (0);
+	return (mini->ret_value);
 }
