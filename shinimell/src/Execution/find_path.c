@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 21:20:32 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/21 18:05:14 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/22 08:40:26 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,29 @@ char    *find_cmd(t_minishell *mini, char *cmd)
         if (path)
                 return (path);
         return (NULL);
+}
+
+int     my_execve(t_minishell *mini, t_cmd *cmds)
+{
+        int     i;
+        char    *path;
+        char    **my_env;
+
+        i = 0;
+        my_env = env_to_array(mini->env);
+        if (cmds->cmd)
+        {
+                path = find_cmd(mini, cmds->cmd[0]);
+                if (path)
+                {
+                        execve(path, cmds->cmd, my_env);
+                        perror("execve");
+                }
+                else
+                {
+                        printf("minishell: %s: command not found\n", cmds->cmd[i]);
+                        return (127);
+                }
+        }
+        return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:49 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/19 20:43:35 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/22 08:36:11 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,15 @@ struct s_minishell
 	t_stat			*stat;
 	t_env			*env;
 	t_env			*secret_env;
-	pid_t			pid;
 	t_cmd			*cmd;
 	char			*line;
+	int			*pipe;
 	int				in;
 	int				infile;
 	int				outfile;
 	int				out;
 	int				fdin;
 	int				fdout;
-	int				pipin;
-	int				pipout;
-	int				charge;
-	int				parent;
 	int				last;
 	int				ret_value;
 	int				exit;

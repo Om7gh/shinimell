@@ -22,6 +22,11 @@
 #include <readline/history.h>
 
 /* FUNCTIONS */
+int     execute_builtin(t_minishell *mini, t_cmd *cmd);
+int red_process(t_minishell *mini, t_cmd *cmds);
+int     is_builtins(t_cmd *cmds);
+int     execute_single_commande(t_minishell *mini, t_cmd *cmd);
+char	**env_to_array(t_env *env_list);
 int     multi_process(t_minishell *mini, t_cmd *cmds);
 char	*env_join(char const *s1, char const *s2);
 int     single_process(t_minishell *mini, t_cmd *cmds);

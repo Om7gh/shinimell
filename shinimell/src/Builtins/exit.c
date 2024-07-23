@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:24 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/04 12:45:21 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/23 15:30:17 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int    ft_isnumber(char *str)
 
 int     ft_exit(t_tokenizer *token)
 {
-       if (!token)
-                 exit(0);
+        if (!token)
+                exit(0);
         if (ft_isnumber(token->token))
         {
                 if (token->next)
