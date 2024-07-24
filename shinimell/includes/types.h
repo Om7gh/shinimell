@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:49 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/22 08:36:11 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/24 09:02:29 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@
 #define YELLOW_COLOR	 "\x1b[33m"
 #define GREEN_COLOR	 "\x1b[32m"
 #define RESET		 "\x1b[0m"
-#define EXPANSION	 -36
 #define ERROR		 1
 #define SUCCESS	 0
-#define IS_DIRECTORY	 126
 #define UNKNOWN_COMMAND 127
 
 typedef struct s_node				t_node;
@@ -58,11 +56,8 @@ struct s_minishell
 	t_env			*secret_env;
 	t_cmd			*cmd;
 	char			*line;
-	int			*pipe;
-	int				in;
+	int			**pipe;
 	int				infile;
-	int				outfile;
-	int				out;
 	int				fdin;
 	int				fdout;
 	int				last;
@@ -75,7 +70,6 @@ struct	s_signal
 	int			sigint;
 	int			sigquit;
 	int			exit_status;
-	pid_t		pid;
 };
 
 struct s_env

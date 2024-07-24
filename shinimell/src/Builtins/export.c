@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:45 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/23 15:54:49 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/23 21:28:08 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int     check_export(char c)
 {
-        return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_';
+        return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_' || c == ' ');
 }
 
 void    join_nodes(t_tokenizer **token)
@@ -60,18 +60,22 @@ int     export(t_tokenizer *token, t_env *env)
                 !ft_strncmp(token->token, "<", 1) || \
                         !ft_strncmp(token->token, ">>", 2) || \
                                 !ft_strncmp(token->token, "<<", 2))
-                print_export(env);
+                return (print_export(env), 0);
         if (token)
         {
                 join_nodes(&token);
                 while (token)
                 {
-                        if (ft_strlen(token->token) == 0)
+                        if (token && ft_strlen(token->token) == 0)
                         {
                                 if (!token->next)
                                         print_export(env);
+                                token = token->next;
+                                continue ;
                         }
-                        if (!ft_strchr(token->token, '=') && !ft_strchr(token->token, '+'))
+                        if (!check_export(token->token[0]))
+                                printf("%sexport: not valid in this context: %s\n%s", YELLOW_COLOR, token->token, RESET);
+                        else if (token && !ft_strchr(token->token, '=') && !ft_strchr(token->token, '+'))
                         {
                                 tmp = env;
                                 flag = 0;

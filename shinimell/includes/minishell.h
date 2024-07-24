@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:53 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/21 20:47:18 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/24 16:08:15 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int	node_len(t_cmd *cmds);
 int     my_execve(t_minishell *mini, t_cmd *cmds);
 char    *find_cmd(t_minishell *mini, char *cmd);
 int     execution(t_minishell *mini, t_cmd *cmds);
-void print_linked_list(t_cmd **cmd);
-int     check_token(char *token);
 void	del_one_env(t_env *lst, void (*del)(void *));
 void handle_sigint(int sig);
 void handle_sigquit(int sig);

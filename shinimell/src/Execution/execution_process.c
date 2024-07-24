@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 19:04:21 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/23 15:44:12 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/23 23:01:35 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int     execute_single_commande(t_minishell *mini, t_cmd *cmd)
 
         status = 0;
         if (is_builtins(cmd))
-                mini->ret_value = execute_builtin(mini, cmd);
+                status = execute_builtin(mini, cmd);
         else
         {
                 pid = fork();
@@ -49,6 +49,9 @@ int     execute_single_commande(t_minishell *mini, t_cmd *cmd)
 
 int     execute_builtin(t_minishell *mini, t_cmd *cmd)
 {
+        if (cmd && cmd->cmd && cmd->cmd[0])
+        {
+
                 if (!ft_strncmp(cmd->cmd[0], "export", 6))
                          return (export(mini->start->next, mini->env));
                 if (!ft_strncmp(cmd->cmd[0], "unset", 5))
@@ -63,14 +66,6 @@ int     execute_builtin(t_minishell *mini, t_cmd *cmd)
                         return (pwd(mini->start));
                 if (!ft_strncmp(cmd->cmd[0], "echo", 4))
                         return (echo(mini->start->next));
+        }
         return (0);
-}
-
-int     multi_process(t_minishell *mini, t_cmd *cmds)
-{
-        (void)cmds;
-        mini->in = dup(STDIN_FILENO);
-        mini->out = dup(STDOUT_FILENO);
-
-        return (mini->ret_value);
 }

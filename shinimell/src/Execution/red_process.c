@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:49:32 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/22 14:38:05 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/24 16:40:51 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int read_redir(t_cmd *cmds)
 {
         int     fd;
 
-        fd = open(cmds->red[1], O_WRONLY | O_CREAT, 0644);
+        puts("read_redir");
+        fd = open(cmds->red[1], O_RDONLY, 0644);
         if (fd < 0)
                 perror("open");
         dup2(fd, STDIN_FILENO);
@@ -51,13 +52,19 @@ int append_redir(t_cmd *cmds)
         return (0);
 }
 
+int     heredoc(t_minishell *mini)
+{
+        dup2(mini->infile, STDIN_FILENO);
+        close(mini->infile);
+        return (0);
+}
+
 int red_process(t_minishell *mini, t_cmd *cmds)
 {
         int     i;
         t_cmd   *tmp;
         i = 0;
         tmp = cmds;
-        (void)mini;
         while (tmp)
         {
                 if (!ft_strcmp(tmp->red[0] , ">"))
@@ -66,6 +73,8 @@ int red_process(t_minishell *mini, t_cmd *cmds)
                         i = read_redir(tmp);
                 else if (!ft_strcmp(tmp->red[0], ">>"))
                         i = append_redir(tmp);
+                else if (!ft_strcmp(tmp->red[0], "<<"))
+                        i = heredoc(mini);
                 tmp = tmp->next;
                 if (i < 0)
                         return (-1);

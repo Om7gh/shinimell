@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 14:26:01 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/22 14:28:00 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/23 23:01:54 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int     is_builtins(t_cmd *cmds)
 {
         t_cmd   *tmp;
 
+        if (!cmds)
+                return (0);
         tmp = cmds;
         while (tmp)
         {

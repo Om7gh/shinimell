@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:55:23 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/23 15:20:12 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/24 16:18:18 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	check_validation(t_tokenizer *token, t_minishell *mini)
 
 void	parse_input(t_minishell *mini, t_cmd **cmds)
 {
-	mini->infile = open("/tmp/.ana_machi_heredoc", O_RDWR | O_CREAT | O_TRUNC, 0777);
 	if (!check_validation(mini->start, mini))
 		return ;
 	if (mini->start)

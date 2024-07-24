@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:47:01 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/09 22:38:05 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/23 21:29:38 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,7 @@
 
 int     check_unset(char c)
 {
-        return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_';
-}
-
-int     check_token(char *token)
-{
-        int i;
-
-        i = 0;
-        if (!token)
-                return (0);
-        while (token[i])
-        {
-                if (!check_unset(token[i]) || !ft_isalnum(token[i]))
-                        return (0);
-                i++;
-        }
-        return (1);
+        return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_');
 }
 
 int     unset(t_tokenizer *token, t_env **env)
@@ -48,32 +32,31 @@ int     unset(t_tokenizer *token, t_env **env)
                 tmp = *env;
                 prev = *env;
                 flag = 0;
-                if (!check_unset(token->token[0]) || !check_token(token->token))
-                {
-                        printf("minishell: unset: `%s': not a valid identifier\n", token->token);
-                        if (token->next)                
-                                token = token->next;
-                }
-                if (!ft_strcmp(token->token, tmp->key))
+                if (!check_unset(token->token[0]))
+                        return (printf("unset: `%s': not a valid identifier\n", token->token), 1);
+                else if (!ft_strcmp(token->token, tmp->key))
                 {
                         *env = tmp->next;
                         if (token->next)
                                 token = token->next;
                         continue;
                 }
-                while (tmp)
+                else
                 {
-                        if (!ft_strcmp(token->token, tmp->key))
+                        while (tmp)
                         {
-                                if (tmp == *env)
-                                        (*env) = (*env)->next;
-                                else
-                                        prev->next = tmp->next;
-                                flag = 1;
-                                break ;
+                                if (!ft_strcmp(token->token, tmp->key))
+                                {
+                                        if (tmp == *env)
+                                                (*env) = (*env)->next;
+                                        else
+                                                prev->next = tmp->next;
+                                        flag = 1;
+                                        break ;
+                                }
+                                prev = tmp;
+                                tmp = tmp->next;
                         }
-                        prev = tmp;
-                        tmp = tmp->next;
                 }
                 if (!flag)
                         return (0);

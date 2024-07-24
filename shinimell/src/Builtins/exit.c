@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:24 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/23 15:30:17 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/23 20:34:46 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,19 @@ int     ft_exit(t_tokenizer *token)
         {
                 if (token->next)
                 {
-                        printf("exit\n");
+                        write(2, "exit\n", 5);
                         printf("%sminishell: exit: too many arguments\n%s", RED_COLOR, RESET);
                         return (1);
                 }
                 else
                 {
-                        printf("exit\n");
+                        write(2, "exit\n", 5);
                         exit(ft_atoi(token->token));
                 }
         }
         else
         {
-                printf("exit\n");
+                write(2, "exit\n", 5);
                 printf("%sminishell: exit: %s: numeric argument required\n%s",RED_COLOR, token->token, RESET);
                 exit(255);
         }
