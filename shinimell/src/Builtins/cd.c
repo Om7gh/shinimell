@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:38 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/06 19:22:37 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/24 19:43:09 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,10 @@ int     cd(t_tokenizer *token, t_env *env)
                 path = get_values(&env, "HOME");
                 if (chdir(path) == -1)
                 {
-                printf("cd: %s: No such file or directory\n", path);
-                return (1);
+                        write(2, "cd: ", 4);
+                        write(2, path, ft_strlen(path));
+                        write(2, "No such file or directory \n", 28);
+                        return (1);
                 }
         }
         else
@@ -66,8 +68,19 @@ int     cd(t_tokenizer *token, t_env *env)
                 path = token->token;
                 if (chdir(path) == -1)
                 {
-                printf("cd: %s: No such file or directory\n", path);
-                return (1);
+                        if (!access(path, F_OK))
+                        {
+                                write(2, "cd: ", 4);
+                                write(2, path, ft_strlen(path));
+                                write(2, "permission denied \n", 20);
+                        }
+                        else
+                        {
+                                write(2, "cd: ", 4);
+                                write(2, path, ft_strlen(path));
+                                write(2, "No such file or directory \n", 28);
+                        }
+                        return (1);
                 }
         }
         pwd = getcwd(NULL, 0);

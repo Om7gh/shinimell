@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:49 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/24 09:02:29 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/24 19:12:43 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #define ERROR		 1
 #define SUCCESS	 0
 #define UNKNOWN_COMMAND 127
+#define IS_DIR 126
 
 typedef struct s_node				t_node;
 typedef struct s_minishell			t_minishell;

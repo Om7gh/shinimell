@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 21:20:32 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/24 16:30:34 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/26 18:51:44 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,32 @@ char    *join_cmd_path(t_minishell *mini, char *cmd)
 {
        char     **path;
        char     *full_path;
+       struct   stat file;
 
        path = find_path(mini);
         if (!path)
                  return (NULL);
-       if (path && (*path[0] == '.' || *path[0] == '/'))
-       {
-               if (!access(cmd, X_OK))
-                       return (cmd);
-               return (NULL);
-       }
-       full_path = ft_strjoin("/", cmd);
-        while (*path)
+        if (stat(cmd, &file) == 0 && S_ISDIR(file.st_mode))
         {
-                cmd = ft_strjoin(*path, full_path);
-                if (!access(cmd, X_OK))
-                        return (cmd);
-                path++;
+                write(2 , "minishell: ", 11);
+                write(2 , cmd, ft_strlen(cmd));
+                write(2 ," is a directory\n", 16);
+                exit(126);
         }
-        return (NULL);
+        if (!access(cmd, F_OK) || !access(cmd, X_OK))
+                return (cmd);
+        else
+        {
+                full_path = ft_strjoin("/", cmd);
+                while (*path)
+                {
+                        cmd = ft_strjoin(*path, full_path);
+                        if (!access(cmd, F_OK) || !access(cmd, X_OK))
+                                return (cmd);
+                        path++;
+                }
+                return (NULL);
+        }
 }
 
 char    *find_cmd(t_minishell *mini, char *cmd)
@@ -76,11 +83,12 @@ int     my_execve(t_minishell *mini, t_cmd *cmds)
                 {
                         execve(path, cmds->cmd, my_env);
                         perror("execve");
+                        exit(1);
                 }
                 else
                 {
                         printf("minishell: %s: command not found\n", cmds->cmd[i]);
-                        return (127);
+                        exit(127);
                 }
         }
         return (0);

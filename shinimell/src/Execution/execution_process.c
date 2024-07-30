@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 19:04:21 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/23 23:01:35 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/25 17:21:32 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int     single_process(t_minishell *mini, t_cmd *cmds)
         status = execute_single_commande(mini, cmds);
         dup2(mini->fdin, STDIN_FILENO);
         dup2(mini->fdout, STDOUT_FILENO);
+        close(mini->fdin);
+	close(mini->fdout);
         return (status);
 }
 
@@ -43,6 +45,10 @@ int     execute_single_commande(t_minishell *mini, t_cmd *cmd)
                 if (pid == 0)
                         status = my_execve(mini, cmd);
                 waitpid(pid, &status, 0);
+                if (WIFEXITED(status))
+                        status = WEXITSTATUS(status);
+                else if (WIFSIGNALED(status))
+                        status = WTERMSIG(status);
         }
         return (status);
 }

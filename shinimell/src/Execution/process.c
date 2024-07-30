@@ -1,35 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   process.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 16:49:20 by omghazi           #+#    #+#             */
+/*   Updated: 2024/07/30 16:18:00 by omghazi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
-static char	**cmd_executable(t_cmd *cmds)
-{
-	char	**new;
-	t_cmd	*tmp;
-	int		i;
 
-	i = 0;
-	new = malloc(sizeof(char *) * (node_len(cmds) + 1));
-	tmp = cmds;
-	while (tmp)
-	{
-		if (tmp->cmd[i])
-		{
-			new[i] = ft_strdup(tmp->cmd[i]);
-			i++;
-		}
-		tmp = tmp->next;
-	}
-	new[i] = NULL;
-	return (new);
-}
-
-int process(t_minishell *mini, t_cmd *cmd)
-{
-	char	**get_cmds;
-
-	get_cmds = cmd_executable(cmd);
-	if (!get_cmds)
-		exit(1);
-
-	mini->ret_value = execution(mini, cmd);
-	return (0);
-}
+// int process(t_minishell *mini, t_cmd *cmds, int input, int output)
+// {
+//         char    **cmd;
+//         // int     status;
+//         (void)input;
+//         (void)output;
+//         cmd = get_cmds(mini, cmds);
+//         if (!cmd)
+//                 return (1);
+//         for (int i = 0; cmd[i]; i++)
+//                 printf("cmd[%d] = %s\n", i, cmd[i]);
+//         return (0);
+// }

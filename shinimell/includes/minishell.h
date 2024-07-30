@@ -6,30 +6,37 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:53 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/24 16:08:15 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/29 18:08:16 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include <libft.h>
+#include <sys/wait.h>
 #include <types.h>
 #include <stdio.h>
 #include <signal.h>
 #include <limits.h>
 #include <fcntl.h>
+#include <sys/stat.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
 /* FUNCTIONS */
+int 	process(t_minishell *mini, t_cmd *cmds, int input, int output);
+int	check_word_input(char c);
+int 	middle_commandes(t_minishell *mini, t_cmd *cmds);
+int     multi_process(t_minishell *mini, t_cmd *cmds);
+int 	last_commande(t_minishell *mini, t_cmd *cmd);
+void	print_state(t_stat stat);
 int     execute_builtin(t_minishell *mini, t_cmd *cmd);
-int red_process(t_minishell *mini, t_cmd *cmds);
+int 	red_process(t_minishell *mini, t_cmd *cmds);
 int     is_builtins(t_cmd *cmds);
 int     execute_single_commande(t_minishell *mini, t_cmd *cmd);
 char	**env_to_array(t_env *env_list);
 int     multi_process(t_minishell *mini, t_cmd *cmds);
 char	*env_join(char const *s1, char const *s2);
-int     single_process(t_minishell *mini, t_cmd *cmds);
 int     single_process(t_minishell *mini, t_cmd *cmds);
 char	**env_to_array(t_env *env_list);
 int	node_len(t_cmd *cmds);
@@ -37,12 +44,12 @@ int     my_execve(t_minishell *mini, t_cmd *cmds);
 char    *find_cmd(t_minishell *mini, char *cmd);
 int     execution(t_minishell *mini, t_cmd *cmds);
 void	del_one_env(t_env *lst, void (*del)(void *));
-void handle_sigint(int sig);
-void handle_sigquit(int sig);
+void	 handle_sigint(int sig);
+void	 handle_sigquit(int sig);
 t_env	*new_env(char *key, char *value);
 void    append_env(t_env **env, t_env *node);
 char    *get_values(t_env **env, char *key);
-int    set_env(t_env **env, char *key, char *value);
+int   		set_env(t_env **env, char *key, char *value);
 char		*get_value(t_minishell **mini, char *key);
 int		env(t_env *env);
 int		pwd(t_tokenizer *token);

@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:55:23 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/24 16:18:18 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/29 17:05:39 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,46 @@ int	check_validation(t_tokenizer *token, t_minishell *mini)
 	return (1);
 }
 
+void	remove_quotes(t_tokenizer *token)
+{
+	t_tokenizer	*tmp;
+	char		*str;
+	int		i;
+
+	str = NULL;
+	tmp = token;
+	while (tmp)
+	{
+		i = 0;
+		if (*tmp->stat == INDQUOTES)
+		{
+			while (tmp->token[i])
+			{
+				if (tmp->token[i] != '"')
+					str = ft_strjoin(str, ft_substr(tmp->token, i, i + 1));
+				if (tmp->token[i])
+					i++;
+			}
+			tmp->token = ft_strdup(str);
+		}
+		else if (*tmp->stat == INQUOTES)
+		{
+			while (tmp->token[i])
+			{
+				if (tmp->token[i] != '\'')
+					str = ft_strjoin(str, ft_substr(tmp->token, i, i + 1));
+				if (tmp->token[i])
+					i++;
+			}
+			tmp->token = ft_strdup(str);
+		}
+		tmp = tmp->next;
+	}
+}
+
 void	parse_input(t_minishell *mini, t_cmd **cmds)
 {
+	remove_quotes(mini->start);
 	if (!check_validation(mini->start, mini))
 		return ;
 	if (mini->start)
