@@ -6,76 +6,102 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:49:32 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/24 22:36:47 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/01 18:25:44 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int send_redir(t_cmd *cmds)
+int     send_redir(char *red)
 {
         int     fd;
 
-        if (cmds && cmds->red && cmds->red[1])
+        fd = open(red, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+        if (fd < 0)
         {
-                fd = open(cmds->red[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-                if (fd < 0)
-                        perror("open");
-                dup2(fd, STDOUT_FILENO);
-                close(fd);
+                perror("open");
+                return (-1);
         }
-        return (0);
-}
-
-int read_redir(t_cmd *cmds)
-{
-        int     fd;
-
-        fd = open(cmds->red[1], O_RDONLY, 0644);
-        if (fd < 0)
-                perror("open");
-        dup2(fd, STDIN_FILENO);
+        if (dup2(fd, STDOUT_FILENO) < 0)
+        {
+                perror("dup2");
+                return (-1);
+        }
         close(fd);
         return (0);
 }
 
-int append_redir(t_cmd *cmds)
+int     append_redir(char *red)
 {
         int     fd;
 
-        fd = open(cmds->red[1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+        fd = open(red, O_WRONLY | O_CREAT | O_APPEND, 0644);
         if (fd < 0)
+        {
                 perror("open");
-        dup2(fd, STDOUT_FILENO);
+                return (-1);
+        }
+        if (dup2(fd, STDOUT_FILENO) < 0)
+        {
+                perror("dup2");
+                return (-1);
+        }
         close(fd);
         return (0);
 }
+int     read_redir(char *red)
+{
+        int     fd;
 
+        fd = open(red, O_RDONLY , 0644);
+        if (fd < 0)
+        {
+                perror("open");
+                return (-1);
+        }
+        if (dup2(fd, STDIN_FILENO) < 0)
+        {
+                perror("dup2");
+                return (-1);
+        }
+        close(fd);
+        return (0);
+}
 int     heredoc(t_minishell *mini)
 {
-        dup2(mini->infile, STDIN_FILENO);
-        close(mini->infile);
+        if (dup2(mini->infile, STDIN_FILENO) < 0)
+        {
+                perror("dup2");
+                return (-1);
+        }
+        if (close(mini->infile) < 0)
+        {
+                perror("close");
+                return (-1);
+        }
         return (0);
 }
 
 int red_process(t_minishell *mini, t_cmd *cmds)
 {
         int     i;
+        int     j;
         t_cmd   *tmp;
 
         i = 0;
+        j = 0;
         tmp = cmds;
-        while (tmp)
+        while (tmp && tmp->red[j])
         {
-                if (!ft_strcmp(tmp->red[0], "<"))
-                        i = read_redir(tmp);
-                else if (!ft_strcmp(tmp->red[0] , ">"))
-                        i = send_redir( tmp);
-                else if (!ft_strcmp(tmp->red[0], ">>"))
-                        i = append_redir(tmp);
-                else if (!ft_strcmp(tmp->red[0], "<<"))
+                if (!ft_strcmp(tmp->red[j], ">"))
+                        i = send_redir(tmp->red[j + 1]);
+                else if (!ft_strcmp(tmp->red[j], ">>"))
+                        i = append_redir(tmp->red[j + 1]);
+                else if (!ft_strcmp(tmp->red[j], "<"))
+                        i = read_redir(tmp->red[j + 1]);
+                else if (!ft_strcmp(tmp->red[j], "<<"))
                         i = heredoc(mini);
-                tmp = tmp->next;
+                j++;
                 if (i < 0)
                         return (-1);
         }

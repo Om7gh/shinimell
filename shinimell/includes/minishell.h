@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:53 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/29 18:08:16 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/07/30 17:11:25 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@
 /* FUNCTIONS */
 int 	process(t_minishell *mini, t_cmd *cmds, int input, int output);
 int	check_word_input(char c);
-int 	middle_commandes(t_minishell *mini, t_cmd *cmds);
-int     multi_process(t_minishell *mini, t_cmd *cmds);
-int 	last_commande(t_minishell *mini, t_cmd *cmd);
 void	print_state(t_stat stat);
 int     execute_builtin(t_minishell *mini, t_cmd *cmd);
 int 	red_process(t_minishell *mini, t_cmd *cmds);

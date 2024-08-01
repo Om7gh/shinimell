@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 21:20:32 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/26 18:51:44 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/01 18:28:43 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char    *join_cmd_path(t_minishell *mini, char *cmd)
                 write(2 , "minishell: ", 11);
                 write(2 , cmd, ft_strlen(cmd));
                 write(2 ," is a directory\n", 16);
-                exit(126);
+                exit(IS_DIR);
         }
         if (!access(cmd, F_OK) || !access(cmd, X_OK))
                 return (cmd);
@@ -70,15 +70,14 @@ char    *find_cmd(t_minishell *mini, char *cmd)
 
 int     my_execve(t_minishell *mini, t_cmd *cmds)
 {
-        int     i;
         char    *path;
         char    **my_env;
 
-        i = 0;
         my_env = env_to_array(mini->env);
         if (cmds->cmd)
         {
                 path = find_cmd(mini, cmds->cmd[0]);
+                printf("path = %s\n", path);
                 if (path)
                 {
                         execve(path, cmds->cmd, my_env);
@@ -87,8 +86,8 @@ int     my_execve(t_minishell *mini, t_cmd *cmds)
                 }
                 else
                 {
-                        printf("minishell: %s: command not found\n", cmds->cmd[i]);
-                        exit(127);
+                        printf("minishell: %s: command not found\n", cmds->cmd[0]);
+                        exit(UNKNOWN_COMMAND);
                 }
         }
         return (0);

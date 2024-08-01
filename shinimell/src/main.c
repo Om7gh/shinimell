@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:21:47 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/27 14:18:41 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/01 15:38:29 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ int	main(int argc, char **argv, char **env)
 			continue ;
 		minishell->start = lexer;
 		parse_input(minishell, &cmds);
-		close(minishell->infile);
-		unlink("/tmp/ana_machi_heredoc");
 		if (minishell->line)
 		{
+			close(minishell->infile);
+			unlink("/tmp/ana_machi_heredoc");
 			add_history(minishell->line);
 			free(minishell->line);
 			clear_token(&lexer, free);
