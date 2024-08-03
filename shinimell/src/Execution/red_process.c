@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:49:32 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/01 18:25:44 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/01 18:49:13 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int red_process(t_minishell *mini, t_cmd *cmds)
         i = 0;
         j = 0;
         tmp = cmds;
-        while (tmp && tmp->red[j])
+        while (tmp && tmp->red && tmp->red[j])
         {
                 if (!ft_strcmp(tmp->red[j], ">"))
                         i = send_redir(tmp->red[j + 1]);

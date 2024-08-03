@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:49:20 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/01 16:41:11 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/03 14:36:00 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,12 @@
 
 int process(t_minishell *mini, t_cmd *cmds, int input, int output)
 {
-        
+        if (red_process(mini, cmds) == -1)
+                exit(1);
         if (input != STDIN_FILENO && dup2(input, 0) < 0)
-                return (1);
-        if (output != STDOUT_FILENO)
-                close(output);
+                exit (1);
         if (output != STDOUT_FILENO &&  dup2(output, 1) < 0)
-                return (1);
-        if (input != STDIN_FILENO)
-                close(input);
+                exit (1);
         if (is_builtins(cmds))
                 return (execute_builtin(mini, cmds));
         else

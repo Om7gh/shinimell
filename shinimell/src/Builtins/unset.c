@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:47:01 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/23 21:29:38 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/02 12:50:24 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int     check_unset(char c)
 {
-        return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_');
+        return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_' || c == '>' || c == '<');
 }
 
 int     unset(t_tokenizer *token, t_env **env)

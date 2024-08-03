@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 21:20:32 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/01 18:28:43 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/01 18:32:40 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int     my_execve(t_minishell *mini, t_cmd *cmds)
         if (cmds->cmd)
         {
                 path = find_cmd(mini, cmds->cmd[0]);
-                printf("path = %s\n", path);
                 if (path)
                 {
                         execve(path, cmds->cmd, my_env);
