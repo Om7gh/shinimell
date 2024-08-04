@@ -6,13 +6,13 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:49:32 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/01 18:49:13 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/04 20:40:55 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int     send_redir(char *red)
+int     send_redir(char *red, int output)
 {
         int     fd;
 
@@ -22,7 +22,7 @@ int     send_redir(char *red)
                 perror("open");
                 return (-1);
         }
-        if (dup2(fd, STDOUT_FILENO) < 0)
+        if (dup2(fd, output) < 0)
         {
                 perror("dup2");
                 return (-1);
@@ -49,7 +49,7 @@ int     append_redir(char *red)
         close(fd);
         return (0);
 }
-int     read_redir(char *red)
+int     read_redir(char *red, int input)
 {
         int     fd;
 
@@ -59,7 +59,7 @@ int     read_redir(char *red)
                 perror("open");
                 return (-1);
         }
-        if (dup2(fd, STDIN_FILENO) < 0)
+        if (dup2(fd, input) < 0)
         {
                 perror("dup2");
                 return (-1);
@@ -82,7 +82,7 @@ int     heredoc(t_minishell *mini)
         return (0);
 }
 
-int red_process(t_minishell *mini, t_cmd *cmds)
+int red_process(t_minishell *mini, t_cmd *cmds, int input, int output)
 {
         int     i;
         int     j;
@@ -94,11 +94,11 @@ int red_process(t_minishell *mini, t_cmd *cmds)
         while (tmp && tmp->red && tmp->red[j])
         {
                 if (!ft_strcmp(tmp->red[j], ">"))
-                        i = send_redir(tmp->red[j + 1]);
+                        i = send_redir(tmp->red[j + 1], output);
                 else if (!ft_strcmp(tmp->red[j], ">>"))
                         i = append_redir(tmp->red[j + 1]);
                 else if (!ft_strcmp(tmp->red[j], "<"))
-                        i = read_redir(tmp->red[j + 1]);
+                        i = read_redir(tmp->red[j + 1], input);
                 else if (!ft_strcmp(tmp->red[j], "<<"))
                         i = heredoc(mini);
                 j++;

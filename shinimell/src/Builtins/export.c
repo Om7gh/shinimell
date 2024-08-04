@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:45 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/23 21:28:08 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/04 20:36:18 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int     export(t_tokenizer *token, t_env *env)
         if (!token || !ft_strncmp(token->token, ">", 1) || \
                 !ft_strncmp(token->token, "<", 1) || \
                         !ft_strncmp(token->token, ">>", 2) || \
-                                !ft_strncmp(token->token, "<<", 2))
+                                !ft_strncmp(token->token, "<<", 2) || \
+                                        !ft_strncmp(token->token, "|", 1))
                 return (print_export(env), 0);
         if (token)
         {

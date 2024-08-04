@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 19:04:21 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/03 14:29:32 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/04 20:41:40 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int     single_process(t_minishell *mini, t_cmd *cmds)
 
         mini->fdin = dup(STDIN_FILENO);
 	mini->fdout = dup(STDOUT_FILENO);
-        if (red_process(mini, cmds) == -1)
+        if (red_process(mini, cmds, STDIN_FILENO, STDOUT_FILENO) == -1)
                 return (1);
         status = execute_single_commande(mini, cmds);
         dup2(mini->fdin, STDIN_FILENO);
