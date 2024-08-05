@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 18:41:48 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/28 20:07:20 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/05 16:15:35 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int     here_doc(t_tokenizer *delimiter, t_minishell *mini)
                         input = expansion(input, mini);
                 write(mini->fdin, input, ft_strlen(input));
                 write(mini->fdin, "\n", 1);
+	        signal(SIGINT, handle_sigint);
         }
 	mini->infile = open("/tmp/ana_machi_heredoc", O_RDONLY, 0777);
         if (!mini->infile)

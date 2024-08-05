@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:49:32 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/04 20:40:55 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/04 21:07:26 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int     send_redir(char *red, int output)
         return (0);
 }
 
-int     append_redir(char *red)
+int     append_redir(char *red, int output)
 {
         int     fd;
 
@@ -41,7 +41,7 @@ int     append_redir(char *red)
                 perror("open");
                 return (-1);
         }
-        if (dup2(fd, STDOUT_FILENO) < 0)
+        if (dup2(fd, output) < 0)
         {
                 perror("dup2");
                 return (-1);
@@ -96,7 +96,7 @@ int red_process(t_minishell *mini, t_cmd *cmds, int input, int output)
                 if (!ft_strcmp(tmp->red[j], ">"))
                         i = send_redir(tmp->red[j + 1], output);
                 else if (!ft_strcmp(tmp->red[j], ">>"))
-                        i = append_redir(tmp->red[j + 1]);
+                        i = append_redir(tmp->red[j + 1], output);
                 else if (!ft_strcmp(tmp->red[j], "<"))
                         i = read_redir(tmp->red[j + 1], input);
                 else if (!ft_strcmp(tmp->red[j], "<<"))

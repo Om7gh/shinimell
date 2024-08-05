@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:56:11 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/04 20:38:26 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/05 16:35:09 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ int	first_commande(t_minishell *mini, t_cmd *cmd)
 		close(mini->pipe[0][0]);
 		process(mini, cmd, STDIN_FILENO, mini->pipe[0][1]);
 	}
-	else
-		close(mini->pipe[0][1]);
+	close(mini->pipe[0][1]);
 	return (0);
 }
 
@@ -51,6 +50,7 @@ int	other_cmds(t_minishell *mini, t_cmd *cmd, int i)
 	{	
 		close(mini->pipe[i][1]);
 		close(mini->pipe[i - 1][0]);
+
 	}
 	return (0);
 }
@@ -92,5 +92,5 @@ int     multi_process(t_minishell *mini, t_cmd *cmds)
 		mini->ret_value = WEXITSTATUS(mini->ret_value);
 	else if (WIFSIGNALED(mini->ret_value))
 		mini->ret_value = WTERMSIG(mini->ret_value);
-	return (0);
+	return (mini->ret_value);
 }

@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 21:20:32 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/01 18:32:40 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/05 16:37:51 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ int     my_execve(t_minishell *mini, t_cmd *cmds)
                 }
                 else
                 {
-                        printf("minishell: %s: command not found\n", cmds->cmd[0]);
+                        ft_putendl_fd("minishell: ", 2);
+                        ft_putendl_fd(cmds->cmd[0], 2);
+                        ft_putendl_fd("Not found", 2);
                         exit(UNKNOWN_COMMAND);
                 }
         }

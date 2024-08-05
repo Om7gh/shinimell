@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:21:47 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/01 15:38:29 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/05 16:19:23 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	main(int argc, char **argv, char **env)
 	minishell->env = envr;
 	while (minishell->exit == 0)
 	{
+		signal(SIGINT, handle_sigint);
+		signal(SIGQUIT, SIG_IGN);
 		minishell->line = readline("\x1b[32mminishell-1.0$\x1b[0m :");
 		if (!minishell->line)
 			return (minishell->ret_value);
