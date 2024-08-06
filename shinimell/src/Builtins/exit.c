@@ -6,48 +6,71 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:24 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/05 20:21:13 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/06 17:45:43 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int    ft_isnumber(char *str)
+int     is_valid(char c)
 {
-        int i;
+        return (c == '+' || c == '-' || c == ' ' || c == '|' || c == '\t' || c == '>' || c == '<' || (c > '0' && c <= '9'));
+}
 
-        i = 0;
-        while (str && str[i])
+int     check_exit_status(t_tokenizer *token)
+{
+        int     i;
+
+        i = -1;
+        while (token->token[++i])
         {
-                if (!ft_isdigit(str[i]))
-                        return (0);
-                i++;
+                if (!is_valid(token->token[i]))
+                        return (ERROR);
         }
-        return (1);
+        return (SUCCESS);
 }
 
 int     ft_exit(t_tokenizer *token)
 {
+        int     res;
+        int     flag;
+        t_tokenizer *tmp;
+
+        flag = 0;
+        tmp = token;
         if (!token)
                 exit(0);
-        if (ft_isnumber(token->token))
+        while (tmp)
         {
-                if (token->next)
+                if (!ft_strncmp(tmp->token, ">", 1) || !ft_strncmp(tmp->token, ">>", 1) || !ft_strncmp(tmp->token, "<", 1) \
+                        || !ft_strncmp(tmp->token, "<<", 1) || !ft_strncmp(tmp->token, "|", 1))
                 {
-                        write(2, "exit\n", 5);
-                        printf("%sminishell: exit: too many arguments\n%s", RED_COLOR, RESET);
-                        return (1);
+                        tmp = tmp->next->next;
+                        continue;
                 }
-                else
+                if (check_exit_status(tmp) == ERROR)
                 {
-                        write(2, "exit\n", 5);
-                        exit(ft_atoi(token->token));
+                        ft_putstr_fd("exit\nminishell: exit: ", 2);
+                        ft_putstr_fd(tmp->token, 2);
+                        ft_putstr_fd(": numeric argument required\n", 2);
+                        exit(255);
                 }
+                if (!check_exit_status(tmp) && tmp->next && !check_exit_status(tmp->next))
+                {
+                       flag = 1;
+                       break ;
+                }
+                tmp = tmp->next;
         }
-        else
+        if (flag)
         {
-                write(2, "exit\n", 5);
-                printf("%sminishell: exit: %s: numeric argument required\n%s",RED_COLOR, token->token, RESET);
-                exit(255);
+                printf("exit\nminishell: exit: too many arguments\n");
+                return (1);
         }
+        res = ft_atoi(token->token);
+        if (res < 0)
+                exit(255 + res);
+        else if (res > 0)
+                exit(res);
+        return (0);
 }
