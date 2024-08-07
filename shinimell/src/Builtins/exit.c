@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:24 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/07 11:25:43 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/07 15:31:34 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ int     ft_exit(t_cmd *cmd, t_minishell *mini)
         while (cmd->cmd[i])
         {
                 j = 0;
+                if (i > 1)
+                {
+                        ft_putendl_fd("exit", 2);
+                        ft_putstr_fd("Minishell : exit: too many arguments\n", 2);
+                        return (1);
+                }
                 while (cmd->cmd[i][j])
                 {
                         if (!is_valid(cmd->cmd[i][j]))
@@ -40,6 +46,8 @@ int     ft_exit(t_cmd *cmd, t_minishell *mini)
                         }
                         j++;
                 }
+                if (flag)
+                        break;
                 i++;
         }
         if (flag)
@@ -47,7 +55,7 @@ int     ft_exit(t_cmd *cmd, t_minishell *mini)
                 ft_putstr_fd("Minishell : exit: ", 2);
                 ft_putstr_fd(cmd->cmd[1], 2);
                 ft_putstr_fd(": numeric argument required\n", 2);
-                return (1);
+                exit(255);
         }
         res = ft_atoi(cmd->cmd[1]);
         if (res < 0)
