@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:49 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/06 20:14:34 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/07 20:45:44 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,15 @@ struct s_env
 
 enum	e_lexer
 {
-	GREAT,
-	LESS,
-	GREATGREAT,
-	LESSLESS,
-	PIPE,
-	WORD,
-	WHITESPACE,
-	D_QUOTE,
-	QUOTE,
+	GREAT, // >
+	LESS, // <
+	GREATGREAT, // >>
+	LESSLESS, // <<
+	PIPE, // |
+	WORD, 
+	WHITESPACE, // ' '
+	D_QUOTE, // ""
+	QUOTE, // ''
 } ;
 
 enum	e_stat

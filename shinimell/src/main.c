@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:21:47 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/07 13:53:44 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/07 20:38:24 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,10 @@ int	main(int argc, char **argv, char **env)
 	lexer = NULL;
 	cmds = NULL;
 	store_env(env, &envr);
-	minishell->exit = 0;
 	minishell->ret_value = 0;	
 	minishell->env = envr;
 	signal(SIGINT, handle_sigint);
-	while (minishell->exit == 0)
+	while (1)
 	{	
 		signal(SIGINT, handle_sigint);
 		signal(SIGQUIT, SIG_IGN);
