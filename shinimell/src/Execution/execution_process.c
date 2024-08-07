@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 19:04:21 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/04 20:41:40 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/07 13:49:08 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,20 @@ int     execute_builtin(t_minishell *mini, t_cmd *cmd)
 {
         if (cmd && cmd->cmd && cmd->cmd[0])
         {
-
-                if (!ft_strncmp(cmd->cmd[0], "export", 6))
-                         return (export(mini->start->next, mini->env));
-                if (!ft_strncmp(cmd->cmd[0], "unset", 5))
-                        return (unset(mini->start->next, &mini->env));
-                if (!ft_strncmp(cmd->cmd[0], "env", 3))
+                // if (!ft_strncmp(cmd->cmd[0], "export", 6) && ft_strlen(cmd->cmd[0]) == 6)
+                //          return (export(cmd, mini->env));
+                if (!ft_strncmp(cmd->cmd[0], "unset", 5) && ft_strlen(cmd->cmd[0]) == 5)
+                        return (unset(cmd, &mini->env));
+                if (!ft_strncmp(cmd->cmd[0], "env", 3) && ft_strlen(cmd->cmd[0]) == 3)
                         return (env(mini->env));
-                if (!ft_strncmp(cmd->cmd[0], "exit", 4))
-                        return (ft_exit(mini->start->next));
-                if (!ft_strncmp(cmd->cmd[0], "cd", 2))
-                        return (cd(mini->start->next, mini->env));
-                if (!ft_strncmp(cmd->cmd[0], "pwd", 3))
-                        return (pwd(mini->start));
-                if (!ft_strncmp(cmd->cmd[0], "echo", 4))
-                        return (echo(mini->start->next));
+                if (!ft_strncmp(cmd->cmd[0], "exit", 4) && ft_strlen(cmd->cmd[0]) == 4)
+                        return (ft_exit(cmd, mini));
+                if (!ft_strncmp(cmd->cmd[0], "cd", 2) && ft_strlen(cmd->cmd[0]) == 2)
+                        return (cd(cmd, mini->env));
+                if (!ft_strncmp(cmd->cmd[0], "pwd", 3) && ft_strlen(cmd->cmd[0]) == 3)
+                        return (pwd(cmd));
+                if (!ft_strncmp(cmd->cmd[0], "echo", 4) && ft_strlen(cmd->cmd[0]) == 4)
+                        return (echo(cmd));
         }
         return (0);
 }

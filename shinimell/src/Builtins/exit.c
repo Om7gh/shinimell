@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:24 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/06 17:45:43 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/07 11:25:43 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,60 +17,41 @@ int     is_valid(char c)
         return (c == '+' || c == '-' || c == ' ' || c == '|' || c == '\t' || c == '>' || c == '<' || (c > '0' && c <= '9'));
 }
 
-int     check_exit_status(t_tokenizer *token)
-{
-        int     i;
-
-        i = -1;
-        while (token->token[++i])
-        {
-                if (!is_valid(token->token[i]))
-                        return (ERROR);
-        }
-        return (SUCCESS);
-}
-
-int     ft_exit(t_tokenizer *token)
+int     ft_exit(t_cmd *cmd, t_minishell *mini)
 {
         int     res;
+        int     i;
+        int     j;
         int     flag;
-        t_tokenizer *tmp;
 
+        i = 1;
         flag = 0;
-        tmp = token;
-        if (!token)
-                exit(0);
-        while (tmp)
+        if (!cmd->cmd[1])
+                exit(mini->ret_value);
+        while (cmd->cmd[i])
         {
-                if (!ft_strncmp(tmp->token, ">", 1) || !ft_strncmp(tmp->token, ">>", 1) || !ft_strncmp(tmp->token, "<", 1) \
-                        || !ft_strncmp(tmp->token, "<<", 1) || !ft_strncmp(tmp->token, "|", 1))
+                j = 0;
+                while (cmd->cmd[i][j])
                 {
-                        tmp = tmp->next->next;
-                        continue;
+                        if (!is_valid(cmd->cmd[i][j]))
+                        {
+                                flag = 1;
+                                break;
+                        }
+                        j++;
                 }
-                if (check_exit_status(tmp) == ERROR)
-                {
-                        ft_putstr_fd("exit\nminishell: exit: ", 2);
-                        ft_putstr_fd(tmp->token, 2);
-                        ft_putstr_fd(": numeric argument required\n", 2);
-                        exit(255);
-                }
-                if (!check_exit_status(tmp) && tmp->next && !check_exit_status(tmp->next))
-                {
-                       flag = 1;
-                       break ;
-                }
-                tmp = tmp->next;
+                i++;
         }
         if (flag)
         {
-                printf("exit\nminishell: exit: too many arguments\n");
+                ft_putstr_fd("Minishell : exit: ", 2);
+                ft_putstr_fd(cmd->cmd[1], 2);
+                ft_putstr_fd(": numeric argument required\n", 2);
                 return (1);
         }
-        res = ft_atoi(token->token);
+        res = ft_atoi(cmd->cmd[1]);
         if (res < 0)
-                exit(255 + res);
-        else if (res > 0)
-                exit(res);
+                res = 256 + res;
+        exit(res);
         return (0);
 }

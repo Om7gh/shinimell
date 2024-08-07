@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:23:24 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/25 20:01:43 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/07 09:49:03 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*get_value(t_minishell **mini, char *key)
 {
 	t_env	*envr;
 
+	if (!key)
+		return (ft_strdup(""));
 	envr = (*mini)->env;
 	while (envr)
 	{

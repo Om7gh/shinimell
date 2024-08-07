@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:49:20 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/05 16:32:05 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/06 23:15:51 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ int process(t_minishell *mini, t_cmd *cmds, int input, int output)
                 exit (1);
         if (output != STDOUT_FILENO &&  dup2(output, 1) < 0)
                 exit (1);
-        if (is_builtins(cmds))
-                (execute_builtin(mini, cmds), exit(mini->ret_value));
-        else
-                return (my_execve(mini, cmds));
+        if (is_builtins(cmds))   
+	        (execute_builtin(mini, cmds), exit(mini->ret_value));
+        return (my_execve(mini, cmds));
 }

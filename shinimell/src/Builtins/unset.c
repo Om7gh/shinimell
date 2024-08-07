@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:47:01 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/02 12:50:24 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/07 09:52:11 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,50 +17,42 @@ int     check_unset(char c)
         return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_' || c == '>' || c == '<');
 }
 
-int     unset(t_tokenizer *token, t_env **env)
+int     unset(t_cmd *cmd, t_env **env)
 {
-        t_env *tmp;
-        t_env *prev;
-        int flag;
+        int     i;
+        int     j;
+        t_env   *tmp;
 
-        if (!token || !env || !*env)
-                return (0);
-        tmp = *env;
-        prev = *env;
-        while (token)
+        i = 1;
+        while (cmd->cmd[i])
         {
-                tmp = *env;
-                prev = *env;
-                flag = 0;
-                if (!check_unset(token->token[0]))
-                        return (printf("unset: `%s': not a valid identifier\n", token->token), 1);
-                else if (!ft_strcmp(token->token, tmp->key))
+                j = 0;
+                while (cmd->cmd[i][j])
                 {
-                        *env = tmp->next;
-                        if (token->next)
-                                token = token->next;
-                        continue;
-                }
-                else
-                {
-                        while (tmp)
+                        if (!check_unset(cmd->cmd[i][j]))
                         {
-                                if (!ft_strcmp(token->token, tmp->key))
-                                {
-                                        if (tmp == *env)
-                                                (*env) = (*env)->next;
-                                        else
-                                                prev->next = tmp->next;
-                                        flag = 1;
-                                        break ;
-                                }
-                                prev = tmp;
-                                tmp = tmp->next;
+                                ft_putstr_fd("minishell: unset: `", 2);
+                                ft_putchar_fd(cmd->cmd[i][j], 2);
+                                ft_putendl_fd("': not a valid identifier", 2);
+                                return (1);
                         }
+                        j++;
                 }
-                if (!flag)
-                        return (0);
-                token = token->next;
+                tmp = *env;
+                while (tmp)
+                {
+                        if (!ft_strcmp(tmp->key, cmd->cmd[i]))
+                        {
+                                free(tmp->key);
+                                free(tmp->value);
+                                tmp->key = NULL;
+                                tmp->value = NULL;
+                                *env = tmp->next;
+                                return (0);
+                        }
+                        tmp = tmp->next;
+                }
+                i++;
         }
         return (0);
 }

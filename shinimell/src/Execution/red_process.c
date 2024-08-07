@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:49:32 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/04 21:07:26 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/06 23:36:13 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int     read_redir(char *red, int input)
         close(fd);
         return (0);
 }
-int     heredoc(t_minishell *mini)
+int     heredoc(t_minishell *mini, int input)
 {
-        if (dup2(mini->infile, STDIN_FILENO) < 0)
+        if (dup2(mini->infile, input) < 0)
         {
                 perror("dup2");
                 return (-1);
@@ -100,7 +100,7 @@ int red_process(t_minishell *mini, t_cmd *cmds, int input, int output)
                 else if (!ft_strcmp(tmp->red[j], "<"))
                         i = read_redir(tmp->red[j + 1], input);
                 else if (!ft_strcmp(tmp->red[j], "<<"))
-                        i = heredoc(mini);
+                        i = heredoc(mini, input);
                 j++;
                 if (i < 0)
                         return (-1);

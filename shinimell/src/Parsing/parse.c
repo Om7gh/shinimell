@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:55:23 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/05 19:36:45 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/06 22:53:41 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,16 @@ void	remove_quotes(t_tokenizer *token)
 // 	}
 // }
 
+void print_commande(t_cmd *cmds)
+{
+	for (t_cmd *head = cmds; head; head = head->next)
+	{
+		for (int i = 0; head->cmd[i]; i++)
+			printf("cmd[%d]: %s\n", i, head->cmd[i]);
+		printf("------------\n");
+	}
+}
+
 void	parse_input(t_minishell *mini, t_cmd **cmds)
 {
 	remove_quotes(mini->start);
@@ -98,6 +108,7 @@ void	parse_input(t_minishell *mini, t_cmd **cmds)
 	if (mini->start)
 	{
 		send_to_execution(mini->start, cmds);
+		mini->cmd = *cmds;
 		mini->ret_value = execution(mini, *cmds);
 	}
 }

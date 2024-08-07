@@ -6,53 +6,60 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:41 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/28 20:40:32 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/07 09:40:06 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_tokenizer    *check_args(t_tokenizer *token, int *count)
+char   **check_args(char **cmd, int *count)
 {
        int    i;
+       int    j;
 
-       while (token)
+       i = 1;
+       while (cmd[i])
        {
-              i = 1;
-              if (token->token[0] == '-')
+              j = 1;
+              if (cmd[i][0] == '-')
               {
-                     while (token->token[i] == 'n')
+                     while (cmd[i][j] && cmd[i][j] == 'n')
+                            j++;
+                     if (cmd[i][j] != '\0')
+                            return (&cmd[i]);
+                     else
+                     {
+                            (*count)++;
                             i++;
-                     if (token->token[i] != '\0')
-                            return (token);
-                     (*count)++;
+                            continue;
+                     }
               }
               else
-                     return (token);
-              token = token->next;
+                     return (&cmd[i]);
        }
        return (NULL);
 }
 
-int     echo(t_tokenizer *token)
+int     echo(t_cmd *cmd)
 {
+       char   **args;
        int    i;
+       int    j;
 
        i = 0;
-       token = check_args(token, &i);
-       while (token)
+       args = check_args(cmd->cmd, &i);
+       j = 0;
+       if (args)
        {
-              if (!ft_strncmp(token->token, ">", 1) || !ft_strncmp(token->token, ">>", 2) || !ft_strncmp(token->token, "<", 1) || !ft_strncmp(token->token, "<<", 2))
-                     token = token->next->next;
-              if (token)
+              while (args[j])
               {
-                     printf("%s", token->token);
-                     token = token->next;
+                     ft_putstr_fd(args[j], 1);
+                     if (args[j + 1])
+                            ft_putstr_fd(" ", 1);
+                     j++;
               }
-              if (token)
-                     printf(" ");
+              if (!i)
+                     ft_putstr_fd("\n", 1);
        }
-       if (!i)
-              printf("\n");
        return (0);
 }

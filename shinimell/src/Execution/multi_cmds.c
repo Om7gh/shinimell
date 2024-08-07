@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:56:11 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/05 16:35:09 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/06 22:45:26 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ int	first_commande(t_minishell *mini, t_cmd *cmd)
 		close(mini->pipe[0][0]);
 		process(mini, cmd, STDIN_FILENO, mini->pipe[0][1]);
 	}
-	close(mini->pipe[0][1]);
+	else
+		if (close(mini->pipe[0][1]) == -1)
+			return (perror("close"), ERROR);
 	return (0);
 }
 
@@ -48,9 +50,10 @@ int	other_cmds(t_minishell *mini, t_cmd *cmd, int i)
 	}
 	else
 	{	
-		close(mini->pipe[i][1]);
-		close(mini->pipe[i - 1][0]);
-
+		if (close(mini->pipe[i][1]) == -1)
+			return (perror("close"), ERROR);
+		if (close(mini->pipe[i - 1][0]) == -1)
+			return (perror("close"), ERROR);
 	}
 	return (0);
 }
@@ -64,7 +67,8 @@ int	last_cmd(t_minishell *mini, t_cmd *cmd, int i)
 		return (perror("fork"), ERROR);
 	if (!pid)
 		process(mini, cmd, mini->pipe[i - 2][0], STDOUT_FILENO);
-	close(mini->pipe[i - 2][0]);
+	if (close(mini->pipe[i - 2][0]))
+		return (perror("close"), ERROR);
 	waitpid(pid, &mini->ret_value, 0);
 	return (0);
 }

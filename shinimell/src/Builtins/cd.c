@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:46:38 by omghazi           #+#    #+#             */
-/*   Updated: 2024/07/24 19:43:09 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/07 11:03:13 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,46 +44,47 @@ int    set_env(t_env **env, char *key, char *value)
         return (0);
 }
 
-int     cd(t_tokenizer *token, t_env *env)
+int     cd(t_cmd *cmd, t_env *env)
 {
         char    *path;
         char    *oldpwd;
         char    *pwd;
-        
+
         path = NULL;
         oldpwd = getcwd(NULL, 0);
-        if (!token)
+        if (!cmd->cmd[1])
         {
                 path = get_values(&env, "HOME");
                 if (chdir(path) == -1)
                 {
-                        write(2, "cd: ", 4);
-                        write(2, path, ft_strlen(path));
-                        write(2, "No such file or directory \n", 28);
+                        ft_putstr_fd("Minishell : cd: ", 2);
+                        ft_putstr_fd(path, 2);
+                        ft_putstr_fd(" No such file or directory ", 2);
+                        ft_putstr_fd("\n", 2);
                         return (1);
                 }
         }
         else
         {
-                path = token->token;
+                path = cmd->cmd[1];
                 if (chdir(path) == -1)
                 {
                         if (!access(path, F_OK))
                         {
-                                write(2, "cd: ", 4);
-                                write(2, path, ft_strlen(path));
-                                write(2, "permission denied \n", 20);
+                                ft_putstr_fd("Minishell : cd: ", 2);
+                                ft_putstr_fd(path, 2);
+                                ft_putendl_fd(" Permission denied ", 2);
                         }
                         else
                         {
-                                write(2, "cd: ", 4);
-                                write(2, path, ft_strlen(path));
-                                write(2, "No such file or directory \n", 28);
+                                ft_putstr_fd("Minishell : cd: ", 2);
+                                ft_putstr_fd(path, 2);
+                                ft_putendl_fd(" No such file or directory ", 2);
                         }
                         return (1);
                 }
         }
-        pwd = getcwd(NULL, 0);
+       pwd = getcwd(NULL, 0);
         if (!set_env(&env, "OLDPWD", oldpwd))
                 append_env(&env, new_env("OLDPWD", ft_strdup("")));
         if (!set_env(&env, "PWD", pwd))

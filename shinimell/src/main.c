@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:21:47 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/06 13:44:22 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/07 13:53:44 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv, char **env)
 	minishell->env = envr;
 	signal(SIGINT, handle_sigint);
 	while (minishell->exit == 0)
-	{
+	{	
 		signal(SIGINT, handle_sigint);
 		signal(SIGQUIT, SIG_IGN);
 		minishell->line = readline("\x1b[32mminishell-1.0$\x1b[0m :");
@@ -48,9 +48,9 @@ int	main(int argc, char **argv, char **env)
 		parse_input(minishell, &cmds);
 		if (minishell->line)
 		{
+			add_history(minishell->line);
 			close(minishell->infile);
 			unlink("/tmp/ana_machi_heredoc");
-			add_history(minishell->line);
 			free(minishell->line);
 			clear_token(&lexer, free);
 			clear_cmd(&cmds, free);

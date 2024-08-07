@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:22:53 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/04 20:41:51 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/06 23:14:25 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ char    *get_values(t_env **env, char *key);
 int   		set_env(t_env **env, char *key, char *value);
 char		*get_value(t_minishell **mini, char *key);
 int		env(t_env *env);
-int		pwd(t_tokenizer *token);
+int		pwd(t_cmd *cmd);
 int		export(t_tokenizer *token, t_env *env);
-int		ft_exit(t_tokenizer *token);
-int		echo(t_tokenizer *token);
-int		cd(t_tokenizer *token, t_env *env);
-int		unset(t_tokenizer *token, t_env **env);
+int		ft_exit(t_cmd *cmd, t_minishell *mini);
+int		echo(t_cmd *cmd);
+int		cd(t_cmd *cmd, t_env *env);
+int		unset(t_cmd *token, t_env **env);
 void	send_to_execution(t_tokenizer *token, t_cmd **cmd);
 void    count_len(t_tokenizer *lst, int *commands_len, int *redirection_len);
 void	clear_cmd(t_cmd **cmd, void (*del)(void *));

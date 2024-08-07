@@ -6,7 +6,7 @@
 /*   By: omghazi <omghazi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 21:20:32 by omghazi           #+#    #+#             */
-/*   Updated: 2024/08/05 20:18:47 by omghazi          ###   ########.fr       */
+/*   Updated: 2024/08/07 13:59:39 by omghazi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ char    *join_cmd_path(t_minishell *mini, char *cmd)
        path = find_path(mini);
         if (!path)
                  return (NULL);
+        if (!cmd || !cmd[0])
+                return (NULL);
         if (stat(cmd, &file) == 0 && S_ISDIR(file.st_mode))
         {
                 write(2 , "minishell: ", 11);
